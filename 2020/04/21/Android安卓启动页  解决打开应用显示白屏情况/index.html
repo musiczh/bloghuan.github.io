@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Android安卓启动页  解决打开应用显示白屏情况 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="当我们打开app的时候是不是会有一瞬间的白屏然后再进入主活动，虽然这并不会造成什么不好的后果，但是感觉用户体验就不是很好。像网易云音乐等等，打开一瞬间就显示了他们的loge，无缝衔接，没有白屏，怎么做到的呢？ 一开始我的思路是这样的。可能是因为我们的主活动逻辑太多，所以加载会变慢，导致显示白屏。如果使用一个只显示一张本地图片的活动，那会不会就不会显示白屏了呢。话不多说我们尝试一下： Activit">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android安卓启动页  解决打开应用显示白屏情况">
+<meta property="og:url" content="http://yoursite.com/2020/04/21/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="当我们打开app的时候是不是会有一瞬间的白屏然后再进入主活动，虽然这并不会造成什么不好的后果，但是感觉用户体验就不是很好。像网易云音乐等等，打开一瞬间就显示了他们的loge，无缝衔接，没有白屏，怎么做到的呢？ 一开始我的思路是这样的。可能是因为我们的主活动逻辑太多，所以加载会变慢，导致显示白屏。如果使用一个只显示一张本地图片的活动，那会不会就不会显示白屏了呢。话不多说我们尝试一下： Activit">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-04-20T18:54:23.284Z">
+<meta property="article:modified_time" content="2019-09-17T12:52:07.293Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android安卓启动页  解决打开应用显示白屏情况" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2020/04/21/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/" class="article-date">
+  <time datetime="2020-04-20T18:54:23.284Z" itemprop="datePublished">2020-04-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android安卓启动页  解决打开应用显示白屏情况
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>当我们打开app的时候是不是会有一瞬间的白屏然后再进入主活动，虽然这并不会造成什么不好的后果，但是感觉用户体验就不是很好。像网易云音乐等等，打开一瞬间就显示了他们的loge，无缝衔接，没有白屏，怎么做到的呢？</p>
+<p>一开始我的思路是这样的。可能是因为我们的主活动逻辑太多，所以加载会变慢，导致显示白屏。如果使用一个只显示一张本地图片的活动，那会不会就不会显示白屏了呢。话不多说我们尝试一下：</p>
+<p>Activity中的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动页，显示倾旅的logo，停顿2秒后跳转</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LunchActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">        setContentView(R.layout.activity_lunch);</span><br><span class="line"></span><br><span class="line">		<span class="comment">//开启子线程进行停顿。如果在主线程停顿的话，会造成主页面卡死，所以在子线程sleep两秒后跳转</span></span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    Thread.sleep(<span class="number">1000</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                start();</span><br><span class="line">                LunchActivity.<span class="keyword">this</span>.finish();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//跳转到主页面</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span></span>&#123;</span><br><span class="line">        Intent intent = <span class="keyword">new</span> Intent(LunchActivity.<span class="keyword">this</span>,MainActivity<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">        startActivity(intent);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>layout中的代码：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</span><br><span class="line">&lt;android.support.constraint.ConstraintLayout</span><br><span class="line">    xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></span><br><span class="line">    xmlns:app=<span class="string">"http://schemas.android.com/apk/res-auto"</span></span><br><span class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></span><br><span class="line">    android:layout_width=<span class="string">"match_parent"</span></span><br><span class="line">    android:layout_height=<span class="string">"match_parent"</span></span><br><span class="line">    android:background=<span class="string">"#e74b37"</span></span><br><span class="line">    tools:context=<span class="string">".LunchActivity"</span>&gt;</span><br><span class="line"></span><br><span class="line">    &lt;ImageView</span><br><span class="line">        android:id=<span class="string">"@+id/imageView5"</span></span><br><span class="line">        android:layout_width=<span class="string">"80dp"</span></span><br><span class="line">        android:layout_height=<span class="string">"80dp"</span></span><br><span class="line">        app:layout_constraintBottom_toBottomOf=<span class="string">"parent"</span></span><br><span class="line">        app:layout_constraintEnd_toEndOf=<span class="string">"parent"</span></span><br><span class="line">        app:layout_constraintStart_toStartOf=<span class="string">"parent"</span></span><br><span class="line">        app:layout_constraintTop_toTopOf=<span class="string">"parent"</span></span><br><span class="line">        app:layout_constraintVertical_bias=<span class="string">"0.31"</span></span><br><span class="line">        app:srcCompat=<span class="string">"@drawable/icon"</span> /&gt;</span><br><span class="line">&lt;/android.support.constraint.ConstraintLayout&gt;</span><br></pre></td></tr></table></figure>
+<p>这里简单指定一个imageView来显示一张图片。并把背景设置为橘色</p>
+<p>最后再把启动页活动设置为主活动：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">"com.example.qinglv.LunchActivity"</span>&gt;</span><br><span class="line">            &lt;intent-filter&gt;</span><br><span class="line">                &lt;action android:name=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span><br><span class="line">                &lt;category android:name=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span><br><span class="line">            &lt;/intent-filter&gt;</span><br><span class="line">        &lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+
+<p>一切想的很好，完成后打开一看，还是会白屏，怎么回事？</p>
+<p>活动的加载都是需要时间的，比较简单的活动时间会少点，但是以然会有一瞬间的白屏。那这个白屏到底是什么？就是每个活动的背景。当打开一个活动的时候，因为还没加载出内容，所以显示的就只是背景，所以我们只需要，改变这个背景，设置为我们需要的一个logo照片即可。怎么设置呢？</p>
+<ul>
+<li><p>背景是在主题中指定的，首先设置一个主题，把背景改成我们要的。一般和我们的启动页保持一致，这样的话就不会看起来像两个启动页一样。也可以像网易云音乐那样，背景设置成logo，但是启动页是放广告，但是这会影响用户体验（为了收入打点广告也是可以理解的）。看代码：<br>在res-value-styles：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;style name=<span class="string">"NewAppTheme"</span> parent=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><br><span class="line">        &lt;!-- Customize your theme here. --&gt;</span><br><span class="line">        &lt;item name="colorPrimary"&gt;@color/colorPrimary&lt;/item&gt;</span><br><span class="line">        &lt;item name="colorPrimaryDark"&gt;@color/colorPrimaryDark&lt;/item&gt;</span><br><span class="line">        &lt;item name="android:windowBackground"&gt;@color/colorPrimary&lt;/item&gt;</span><br><span class="line">        &lt;item name="colorAccent"&gt;@color/colorAccent&lt;/item&gt;</span><br><span class="line">    &lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<p>重点是这句<code>&lt;item name=&quot;android:windowBackground&quot;&gt;@color/colorPrimary&lt;/item&gt;</code><br>这里我指定的是一种颜色你们也可以指定一张图片</p>
+</li>
+<li><p>再给启动页活动指定主题：<br>在：AndroidManifest：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;activity android:name=<span class="string">"com.example.qinglv.LunchActivity"</span></span><br><span class="line">           android:theme=<span class="string">"@style/NewAppTheme"</span>&gt;</span><br><span class="line">           &lt;intent-filter&gt;</span><br><span class="line">               &lt;action android:name=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span><br><span class="line">               &lt;category android:name=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span><br><span class="line">           &lt;/intent-filter&gt;</span><br><span class="line">       &lt;/activity&gt;</span><br></pre></td></tr></table></figure>
+<p>重点是这句<code>android:theme=&quot;@style/NewAppTheme&quot;</code></p>
+</li>
+</ul>
+<p>然后再打开的时候，就会发现不会了。原本显示的白屏变成了我们设置好的图片。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2020/04/21/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/" data-id="ck98u9jua0003hwvf6c74f8z0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2020/04/21/Android%E5%AE%89%E5%8D%93%E4%B8%ADActivity%E6%B4%BB%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android安卓中Activity活动生命周期
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/04/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BLitePal%E7%9A%84%E4%BD%BF%E7%94%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">学习笔记之LitePal的使用</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">April 2020</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/04/21/json%E6%95%B0%E6%8D%AE%E4%B8%8EString%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/">json数据与String的互相转换</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/21/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/">Android中Activity的启动模式解析</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/21/Android%E5%AE%89%E5%8D%93%E4%B8%ADActivity%E6%B4%BB%E5%8A%A8%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/">Android安卓中Activity活动生命周期</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/21/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/">Android安卓启动页  解决打开应用显示白屏情况</a>
+          </li>
+        
+          <li>
+            <a href="/2020/04/21/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B9%8BLitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">学习笔记之LitePal的使用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2020 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+  
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+  </div>
+</body>
+</html>
