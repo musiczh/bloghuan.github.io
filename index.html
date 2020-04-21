@@ -120,7 +120,7 @@
 </nav>
 
     <div class="view intro-2" id="background" parallax=true
-         style="background: url('/img/star.jpg') no-repeat center center;
+         style="background: url('/img/star1.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
@@ -166,6 +166,50 @@
           
         
         <div>前言平常我们启动活动的时候就是直接startActivity或许并没有注意活动的启动模式，默认情况下都是以默认的启动模式启动。但启动模式有时候是比较重要的。例如一个活动你想他只启动一次不要有多个实例，那么你可能需要把他设置为singleTask模式。所以有必要了解一下这一些启动模式。同时要注意一下，启动模式≠启动方式，启动方式是指显示启动和隐式启动，不要混淆，显示启动和隐式启动后续我会有专门的文章</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/">Android使用系统相机进行拍照</a>
+
+      <a href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言我们在日常的开发中有时候会遇到需要用到相机的需求，而相机也是很常用的东西，例如扫二维码啊拍照上传啊等等。这里我不讲像qq那样自定义很强的拍照功能（事实上我也不会），讲个最简单的调用系统相机拍照并储存
+调用系统相机步骤这里我通过一个简单的例子来讲这个内容。我自己写了一个demo，布局很简单：
+&lt;Button
+        android:id="@+id/button"
+        </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -282,141 +326,6 @@ Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/">Android使用系统相机进行拍照</a>
-
-      <a href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言我们在日常的开发中有时候会遇到需要用到相机的需求，而相机也是很常用的东西，例如扫二维码啊拍照上传啊等等。这里我不讲像qq那样自定义很强的拍照功能（事实上我也不会），讲个最简单的调用系统相机拍照并储存
-调用系统相机步骤这里我通过一个简单的例子来讲这个内容。我自己写了一个demo，布局很简单：
-&lt;Button
-        android:id="@+id/button"
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/%E7%AE%80%E6%9E%90Java%E4%B8%AD%E7%9A%84Serializable%E4%B8%8EAndroid%E4%B8%AD%E7%9A%84Parcelable%E5%BA%8F%E5%88%97%E5%8C%96/">Java的Serializable与Android的Parcelable序列化简析</a>
-
-      <a href="/2020/04/21/Android/%E7%AE%80%E6%9E%90Java%E4%B8%AD%E7%9A%84Serializable%E4%B8%8EAndroid%E4%B8%AD%E7%9A%84Parcelable%E5%BA%8F%E5%88%97%E5%8C%96/" class="index-excerpt">
-        
-        
-          
-        
-        <div>关于序列化这篇文章主要来讲一下在安卓中关于序列化的问题。首先了解一个问题：什么是序列化？为什么要用到序列化？
-
-什么是序列化：序列化就是就是把一个对象变成可传输的二进制流，可以进行传输。
-
-什么是反序列化：与序列化对应，反序列化就是把一个二进制流转化成对象。
-
-哪里用到序列化：上面说到序列化就是把对象变得可传输；例如在内存，或者网络中传输数据的时候，就得把一个对象变成二进制流可以进行传输。除此之外</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-              <a href="/tags/java/">java</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/">调用系统相册选择照片</a>
-
-      <a href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言在相册里选择图片上传也是很常见的功能了例如微信朋友圈等等。但是他们是自定义的选择器，可以选择多张图片并修改。这里我们讲一个最简单的：调用系统的相册选择一张图片并展示。另外有的读者还想到要通过相机拍照来选择图片的功能，也可以参考一下我的另一篇文章Android使用系统相机进行拍照
-使用步骤这里我是通过一个简单的demo来讲解怎么去实现这个功能。首先看布局：
-&lt;Button
-    andr</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/">启动页白屏解决方案</a>
 
       <a href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/" class="index-excerpt">
@@ -459,14 +368,17 @@ Activi</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">LitePal的使用</a>
+      <a class="index-header" href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/">调用系统相册选择照片</a>
 
-      <a href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/" class="index-excerpt">
+      <a href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/" class="index-excerpt">
         
         
           
         
-        <div>前言数据库操作一直都是比较繁琐而且单一的东西，平时开发中数据库也很常见。有学过mysql的读者可能会觉得sql语句确实让人很难受。同样android中，虽然有内置数据库SQLite，但是操作起来还是非常的不方便。跟网络请求类似，当我们用原生的HttpURLConnection请求数据再用json解析，过程很繁琐，所以我们一般是封装成一个工具类，但是retrofit出现了，他帮我们解决了网络请求和解</div>
+        <div>前言在相册里选择图片上传也是很常见的功能了例如微信朋友圈等等。但是他们是自定义的选择器，可以选择多张图片并修改。这里我们讲一个最简单的：调用系统的相册选择一张图片并展示。另外有的读者还想到要通过相机拍照来选择图片的功能，也可以参考一下我的另一篇文章Android使用系统相机进行拍照
+使用步骤这里我是通过一个简单的demo来讲解怎么去实现这个功能。首先看布局：
+&lt;Button
+    andr</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -537,6 +449,94 @@ try &#123;
               <a href="/tags/android/">android</a>
             
               <a href="/tags/json/">json</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">LitePal的使用</a>
+
+      <a href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言数据库操作一直都是比较繁琐而且单一的东西，平时开发中数据库也很常见。有学过mysql的读者可能会觉得sql语句确实让人很难受。同样android中，虽然有内置数据库SQLite，但是操作起来还是非常的不方便。跟网络请求类似，当我们用原生的HttpURLConnection请求数据再用json解析，过程很繁琐，所以我们一般是封装成一个工具类，但是retrofit出现了，他帮我们解决了网络请求和解</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/04/21/Android/%E7%AE%80%E6%9E%90Java%E4%B8%AD%E7%9A%84Serializable%E4%B8%8EAndroid%E4%B8%AD%E7%9A%84Parcelable%E5%BA%8F%E5%88%97%E5%8C%96/">Java的Serializable与Android的Parcelable序列化简析</a>
+
+      <a href="/2020/04/21/Android/%E7%AE%80%E6%9E%90Java%E4%B8%AD%E7%9A%84Serializable%E4%B8%8EAndroid%E4%B8%AD%E7%9A%84Parcelable%E5%BA%8F%E5%88%97%E5%8C%96/" class="index-excerpt">
+        
+        
+          
+        
+        <div>关于序列化这篇文章主要来讲一下在安卓中关于序列化的问题。首先了解一个问题：什么是序列化？为什么要用到序列化？
+
+什么是序列化：序列化就是就是把一个对象变成可传输的二进制流，可以进行传输。
+
+什么是反序列化：与序列化对应，反序列化就是把一个二进制流转化成对象。
+
+哪里用到序列化：上面说到序列化就是把对象变得可传输；例如在内存，或者网络中传输数据的时候，就得把一个对象变成二进制流可以进行传输。除此之外</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/java/">java</a>
             
           </div>
         
