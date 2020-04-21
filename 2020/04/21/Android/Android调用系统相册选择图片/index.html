@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/cat.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zhegnhuan">
+  <meta name="keywords" content="">
+  <title>调用系统相册选择照片 - HuanBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="HuanBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HuanBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-04-21 00:00">
+                    星期二, 四月 21日 2020, 12:00 凌晨
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    1.9k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    24
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-warning">
+                本文最后更新于：星期二, 四月 21日 2020, 5:00 下午
+              </p>
+            
+            <article class="markdown-body">
+              <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>在相册里选择图片上传也是很常见的功能了例如微信朋友圈等等。但是他们是自定义的选择器，可以选择多张图片并修改。这里我们讲一个最简单的：调用系统的相册选择一张图片并展示。另外有的读者还想到要通过相机拍照来选择图片的功能，也可以参考一下我的另一篇文章<a href="https://blog.csdn.net/weixin_43766753/article/details/101224631" target="_blank" rel="noopener">Android使用系统相机进行拍照</a></p>
+<h1 id="使用步骤"><a href="#使用步骤" class="headerlink" title="使用步骤"></a>使用步骤</h1><p>这里我是通过一个简单的demo来讲解怎么去实现这个功能。首先看布局：</p>
+<pre><code class="hljs java">&lt;Button
+    android:id=<span class="hljs-string">"@+id/button2"</span>
+    android:layout_width=<span class="hljs-string">"wrap_content"</span>
+    android:layout_height=<span class="hljs-string">"wrap_content"</span>
+    android:layout_marginTop=<span class="hljs-string">"5dp"</span>
+    android:layout_marginEnd=<span class="hljs-string">"52dp"</span>
+    android:layout_marginRight=<span class="hljs-string">"52dp"</span>
+    android:text=<span class="hljs-string">"choose"</span>
+    app:layout_constraintEnd_toEndOf=<span class="hljs-string">"parent"</span>
+    app:layout_constraintTop_toTopOf=<span class="hljs-string">"parent"</span> /&gt;
+
+&lt;ImageView
+    android:id=<span class="hljs-string">"@+id/imageView"</span>
+    android:layout_width=<span class="hljs-string">"wrap_content"</span>
+    android:layout_height=<span class="hljs-string">"wrap_content"</span>
+    android:layout_marginTop=<span class="hljs-string">"29dp"</span>
+    app:layout_constraintEnd_toEndOf=<span class="hljs-string">"parent"</span>
+    app:layout_constraintStart_toStartOf=<span class="hljs-string">"parent"</span>
+    app:layout_constraintTop_toBottomOf=<span class="hljs-string">"@+id/button"</span>
+    app:srcCompat=<span class="hljs-string">"@mipmap/ic_launcher_round"</span> /&gt;</code></pre>
+<p>很简单，就是一个按钮和一个imageView。然后接下来让我们想想这个功能怎么去实现：</p>
+<p>首先打开相册，那么肯定要通过隐式启动相册activity；然后相册返回一个路径，我们就拿这个路径把路径上对应的照片展示出来。思路挺简单的，让我们写写看：<br>首先看代码：</p>
+<pre><code class="hljs java">	<span class="hljs-keyword">private</span> Uri imageUri;
+    <span class="hljs-keyword">private</span> ImageView imageView;
+    
+    <span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">protected</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onCreate</span><span class="hljs-params">(Bundle savedInstanceState)</span> </span>&#123;
+        <span class="hljs-keyword">super</span>.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        imageView = findViewById(R.id.imageView);
+        Button button1 = findViewById(R.id.button2);
+        button1.setOnClickListener(<span class="hljs-keyword">new</span> View.OnClickListener() &#123;
+            <span class="hljs-meta">@Override</span>
+            <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onClick</span><span class="hljs-params">(View v)</span> </span>&#123;
+            <span class="hljs-comment">//动态申请权限</span>
+                <span class="hljs-keyword">if</span> (ContextCompat.checkSelfPermission(MainActivity.<span class="hljs-keyword">this</span>,Manifest.permission
+                        .WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)&#123;
+                    ActivityCompat.requestPermissions(MainActivity.<span class="hljs-keyword">this</span>,<span class="hljs-keyword">new</span> String[]&#123;Manifest.permission.WRITE_EXTERNAL_STORAGE&#125;,<span class="hljs-number">1</span>);
+                &#125;<span class="hljs-keyword">else</span>&#123;
+                <span class="hljs-comment">//执行启动相册的方法</span>
+                    openAlbum();
+                &#125;
+            &#125;
+        &#125;);
+     &#125;
+<span class="hljs-comment">//获取权限的结果</span>
+<span class="hljs-meta">@Override</span>
+    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">onRequestPermissionsResult</span><span class="hljs-params">(<span class="hljs-keyword">int</span> requestCode, @NonNull String[] permissions, @NonNull <span class="hljs-keyword">int</span>[] grantResults)</span> </span>&#123;
+        <span class="hljs-keyword">if</span> (requestCode == <span class="hljs-number">1</span>)&#123;
+            <span class="hljs-keyword">if</span> (grantResults.length&gt;<span class="hljs-number">0</span>&amp;&amp;grantResults[<span class="hljs-number">0</span>] == PackageManager.PERMISSION_GRANTED) openAlbum();
+            <span class="hljs-keyword">else</span> Toast.makeText(MainActivity.<span class="hljs-keyword">this</span>,<span class="hljs-string">"你拒绝了"</span>,Toast.LENGTH_SHORT).show();
+        &#125;
+    &#125;
+
+<span class="hljs-comment">//启动相册的方法</span>
+<span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">openAlbum</span><span class="hljs-params">()</span></span>&#123;
+        Intent intent = <span class="hljs-keyword">new</span> Intent(<span class="hljs-string">"android.intent.action.GET_CONTENT"</span>);
+        intent.setType(<span class="hljs-string">"image/*"</span>);
+        startActivityForResult(intent,<span class="hljs-number">2</span>);
+    &#125;</code></pre>
+<p>这里先初始化控件，然后动态申请权限，因为我们要读取照片肯定是要读取内存的权限，记得在AndroidManifest中要写明权限：</p>
+<pre><code class="hljs <uses-permission">获取权限后就打开相册选择。相册对应的action是android.intent.action.GET_CONTENT，setType(&quot;image&#x2F;*&quot;)这个方法表示把所有照片显示出来，然后开启活动。启动活动选择完照片后就会返回一个intent到onActivityResult方法中，所以接下来的主要工作就是如果获取到返回的路径。
+
+我们知道在安卓4.4以后是不能把文件的真实路径直接给别的应用的，所以返回的uri是经过封装的，所以我们要进行解析取出里面的路径。所以这里我们要进行判断安卓版本来进行不同的逻辑，先看代码：
+&#96;&#96;&#96;java
+@Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) &#123;
+    if (requestCode &#x3D;&#x3D; 2)&#123;
+    &#x2F;&#x2F;判断安卓版本
+ 			if (resultCode &#x3D;&#x3D; RESULT_OK&amp;&amp;data!&#x3D;null)&#123;
+                if (Build.VERSION.SDK_INT&gt;&#x3D;19)
+                handImage(data);
+                else handImageLow(data);
+            &#125;
+        &#125;
+    &#125;
+
+&#x2F;&#x2F;安卓版本大于4.4的处理方法
+@RequiresApi(api &#x3D; Build.VERSION_CODES.KITKAT)
+    private void handImage(Intent data)&#123;
+        String path &#x3D;null;
+        Uri uri &#x3D; data.getData();
+        &#x2F;&#x2F;根据不同的uri进行不同的解析
+        if (DocumentsContract.isDocumentUri(this,uri))&#123;
+            String docId &#x3D; DocumentsContract.getDocumentId(uri);
+            if (&quot;com.android.providers.media.documents&quot;.equals(uri.getAuthority()))&#123;
+                String id &#x3D; docId.split(&quot;:&quot;)[1];
+                String selection &#x3D; MediaStore.Images.Media._ID+&quot;&#x3D;&quot;+id;
+                path &#x3D; getImagePath(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,selection);
+            &#125;else if(&quot;com.android.providers.downloads.documents&quot;.equals(uri.getAuthority()))&#123;
+                Uri contentUri &#x3D; ContentUris.withAppendedId(Uri.parse(&quot;content:&#x2F;&#x2F;downloads&#x2F;public_downloads&quot;),Long.valueOf(docId));
+                path &#x3D; getImagePath(contentUri,null);
+            &#125;
+        &#125;else if (&quot;content&quot;.equalsIgnoreCase(uri.getScheme()))&#123;
+            path &#x3D; getImagePath(uri,null);
+        &#125;else if (&quot;file&quot;.equalsIgnoreCase(uri.getScheme()))&#123;
+            path &#x3D; uri.getPath();
+        &#125;
+        &#x2F;&#x2F;展示图片
+        displayImage(path);
+    &#125;
+
+
+&#x2F;&#x2F;安卓小于4.4的处理方法
+private void handImageLow(Intent data)&#123;
+        Uri uri &#x3D; data.getData();
+        String path &#x3D; getImagePath(uri,null);
+        displayImage(path);
+    &#125;
+
+&#x2F;&#x2F;content类型的uri获取图片路径的方法
+private String getImagePath(Uri uri,String selection) &#123;
+        String path &#x3D; null;
+        Cursor cursor &#x3D; getContentResolver().query(uri,null,selection,null,null);
+        if (cursor!&#x3D;null)&#123;
+            if (cursor.moveToFirst())&#123;
+                path &#x3D; cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+            &#125;
+            cursor.close();
+        &#125;
+        return path;
+    &#125;
+
+&#x2F;&#x2F;根据路径展示图片的方法
+private void displayImage(String imagePath)&#123;
+        if (imagePath !&#x3D; null)&#123;
+            Bitmap bitmap &#x3D; BitmapFactory.decodeFile(imagePath);
+            imageView.setImageBitmap(bitmap);
+        &#125;else&#123;
+            Toast.makeText(this,&quot;fail to set image&quot;,Toast.LENGTH_SHORT).show();
+        &#125;
+    &#125;</code></pre>
+<p>上面的代码很多但是不要慌，咱们一个一个来，不难理解的。首先我们知道不同的版本有两个不同的方法来展示图片，就是：handImage和handImageLow。content类型的uri通过getImagePath这个方法来获取真实路径，真实路径通过displayImage这个方法就可以展示出来了。所以主要的工作就是怎么拿到真实路径。现在思路清晰了，让我们一个个来看：</p>
+<p>首先来看一下两个工具方法：getImagePath和displayImage。</p>
+<ul>
+<li>getImagePath学过内容提供器会知道这个就是通过内容提供器来获取数据。通过这个uri以及selection获取到一个Cursor对象。Cursor是什么呢？不了解的读者可以查看这篇博客<a href="https://www.jianshu.com/p/2fc0d39bd2f6" target="_blank" rel="noopener">Android中的Cursor</a>。然后通过这个Cursor对象的MediaStore.Images.Media.DATA这个参数就可以获取到真实路径了。</li>
+<li>displayImage这个方法收一个真实路径字符串，直接通过BitmapFactory.decodeFile这个方法获取到Bitmap再显示出来就行了</li>
+</ul>
+<p>了解了工具方法后，我们的目的就很明确啦：content类型的uri或者真实路径的String。<br>首先是版本低于4.4的，因为返回的是真实的uri，也就是content开头的那个，所以直接通过getImagePath获取真实路径再通过displayImage展示即可。</p>
+<p>接下来这个可能看起来有点头疼，因为要解析不同类型的Uri。我们一个个来看：</p>
+<ul>
+<li><p>第一种是document类型的uri。至于什么是document类型的uri这里就不深入了，只要知道有这种类型的uri，要怎么处理就好了。首先我们要获取一个DocumentId，然后再分两种情况处理：<br>第一种的是media格式的，然后我们要取出后半截字符串我们才能获取到真正的id，这里就真正的id指的是对应数据库表中的id，用于selection的。MediaStore.Images.Media.EXTERNAL_CONTENT_URI就是这个照片的content类型uri，再把selection放进去即可。<br>第二种通过ContentUris.withAppendedId这个方法即可获取到content类型的uri，这个方法负责把id和contentUri连接成一个新的Uri。这个方法在这里也不详细讲解。</p>
+</li>
+<li><p>第二种的是content类型的，那不用说直接用就行了</p>
+</li>
+<li><p>第三种的是file类型的，这个就是真实路径了，直接getPath就可以获取到了。</p>
+</li>
+</ul>
+<p>好了，到此我们的所有疑问也就解决了。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>看完之后是不是发现思路很简单但是实现起来很多的知识盲区呢？确实是这样。但是当我们把这些细节都解决了之后我们就会学到很多的东西，相当于以点带面。文中还有好多没有详解的：<br> ContentUris，BitmapFactory，Cursor，DocumentsContract等等。因为这是另外一块比较大的内容，如果要讲的话将会涉及到很多内容就很容易偏离我们的主题了，所以只要知道大概是什么就可以了。<br>·<br>·<br>·</p>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>《第一行代码》郭霖</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/Android/">Android</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/android/">android</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">LitePal的使用</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/04/21/Android/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/">
+                        <span class="hidden-mobile">Activity启动模式简析</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="musiczh/hexo_comment"
+          issue-term="pathname"
+  
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "调用系统相册选择照片&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 60,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
