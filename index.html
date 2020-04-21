@@ -158,18 +158,14 @@
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/">Android使用系统相机进行拍照</a>
+      <a class="index-header" href="/2020/04/21/Android/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/">Activity启动模式简析</a>
 
-      <a href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/" class="index-excerpt">
+      <a href="/2020/04/21/Android/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="index-excerpt">
         
         
           
         
-        <div>前言我们在日常的开发中有时候会遇到需要用到相机的需求，而相机也是很常用的东西，例如扫二维码啊拍照上传啊等等。这里我不讲像qq那样自定义很强的拍照功能（事实上我也不会），讲个最简单的调用系统相机拍照并储存
-调用系统相机步骤这里我通过一个简单的例子来讲这个内容。我自己写了一个demo，布局很简单：
-&lt;Button
-        android:id="@+id/button"
-        </div>
+        <div>前言平常我们启动活动的时候就是直接startActivity或许并没有注意活动的启动模式，默认情况下都是以默认的启动模式启动。但启动模式有时候是比较重要的。例如一个活动你想他只启动一次不要有多个实例，那么你可能需要把他设置为singleTask模式。所以有必要了解一下这一些启动模式。同时要注意一下，启动模式≠启动方式，启动方式是指显示启动和隐式启动，不要混淆，显示启动和隐式启动后续我会有专门的文章</div>
       </a>
 
       <div class="index-btm post-metas">
@@ -286,16 +282,18 @@ Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/">启动页白屏解决方案</a>
+      <a class="index-header" href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/">Android使用系统相机进行拍照</a>
 
-      <a href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/" class="index-excerpt">
+      <a href="/2020/04/21/Android/Android%E4%BD%BF%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E6%9C%BA%E8%BF%9B%E8%A1%8C%E6%8B%8D%E7%85%A7/" class="index-excerpt">
         
         
           
         
-        <div>﻿当我们打开app的时候是不是会有一瞬间的白屏然后再进入主活动，虽然这并不会造成什么不好的后果，但是感觉用户体验就不是很好。像网易云音乐等等，打开一瞬间就显示了他们的loge，无缝衔接，没有白屏，怎么做到的呢？
-一开始我的思路是这样的。可能是因为我们的主活动逻辑太多，所以加载会变慢，导致显示白屏。如果使用一个只显示一张本地图片的活动，那会不会就不会显示白屏了呢。话不多说我们尝试一下：
-Activi</div>
+        <div>前言我们在日常的开发中有时候会遇到需要用到相机的需求，而相机也是很常用的东西，例如扫二维码啊拍照上传啊等等。这里我不讲像qq那样自定义很强的拍照功能（事实上我也不会），讲个最简单的调用系统相机拍照并储存
+调用系统相机步骤这里我通过一个简单的例子来讲这个内容。我自己写了一个demo，布局很简单：
+&lt;Button
+        android:id="@+id/button"
+        </div>
       </a>
 
       <div class="index-btm post-metas">
@@ -376,46 +374,6 @@ Activi</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">LitePal的使用</a>
-
-      <a href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/" class="index-excerpt">
-        
-        
-          
-        
-        <div>前言数据库操作一直都是比较繁琐而且单一的东西，平时开发中数据库也很常见。有学过mysql的读者可能会觉得sql语句确实让人很难受。同样android中，虽然有内置数据库SQLite，但是操作起来还是非常的不方便。跟网络请求类似，当我们用原生的HttpURLConnection请求数据再用json解析，过程很繁琐，所以我们一般是封装成一个工具类，但是retrofit出现了，他帮我们解决了网络请求和解</div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
-          </div>
-        
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-category"></i>
-            
-              <a href="/categories/Android/">Android</a>
-            
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/android/">android</a>
-            
-          </div>
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <div class="col-12 col-md-12 mx-auto index-info">
       <a class="index-header" href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/">调用系统相册选择照片</a>
 
       <a href="/2020/04/21/Android/Android%E8%B0%83%E7%94%A8%E7%B3%BB%E7%BB%9F%E7%9B%B8%E5%86%8C%E9%80%89%E6%8B%A9%E5%9B%BE%E7%89%87/" class="index-excerpt">
@@ -459,14 +417,56 @@ Activi</div>
     
     
     <div class="col-12 col-md-12 mx-auto index-info">
-      <a class="index-header" href="/2020/04/21/Android/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/">Activity启动模式简析</a>
+      <a class="index-header" href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/">启动页白屏解决方案</a>
 
-      <a href="/2020/04/21/Android/Android%E4%B8%ADActivity%E7%9A%84%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E8%A7%A3%E6%9E%90/" class="index-excerpt">
+      <a href="/2020/04/21/Android/Android%E5%AE%89%E5%8D%93%E5%90%AF%E5%8A%A8%E9%A1%B5%20%20%E8%A7%A3%E5%86%B3%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E6%98%BE%E7%A4%BA%E7%99%BD%E5%B1%8F%E6%83%85%E5%86%B5/" class="index-excerpt">
         
         
           
         
-        <div>前言平常我们启动活动的时候就是直接startActivity或许并没有注意活动的启动模式，默认情况下都是以默认的启动模式启动。但启动模式有时候是比较重要的。例如一个活动你想他只启动一次不要有多个实例，那么你可能需要把他设置为singleTask模式。所以有必要了解一下这一些启动模式。同时要注意一下，启动模式≠启动方式，启动方式是指显示启动和隐式启动，不要混淆，显示启动和隐式启动后续我会有专门的文章</div>
+        <div>﻿当我们打开app的时候是不是会有一瞬间的白屏然后再进入主活动，虽然这并不会造成什么不好的后果，但是感觉用户体验就不是很好。像网易云音乐等等，打开一瞬间就显示了他们的loge，无缝衔接，没有白屏，怎么做到的呢？
+一开始我的思路是这样的。可能是因为我们的主活动逻辑太多，所以加载会变慢，导致显示白屏。如果使用一个只显示一张本地图片的活动，那会不会就不会显示白屏了呢。话不多说我们尝试一下：
+Activi</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/">LitePal的使用</a>
+
+      <a href="/2020/04/21/Android/LitePal%E7%9A%84%E4%BD%BF%E7%94%A8/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言数据库操作一直都是比较繁琐而且单一的东西，平时开发中数据库也很常见。有学过mysql的读者可能会觉得sql语句确实让人很难受。同样android中，虽然有内置数据库SQLite，但是操作起来还是非常的不方便。跟网络请求类似，当我们用原生的HttpURLConnection请求数据再用json解析，过程很繁琐，所以我们一般是封装成一个工具类，但是retrofit出现了，他帮我们解决了网络请求和解</div>
       </a>
 
       <div class="index-btm post-metas">
