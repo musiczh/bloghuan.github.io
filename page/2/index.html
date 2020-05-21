@@ -17,7 +17,7 @@
   <meta name="description" content="">
   <meta name="author" content="zhegnhuan">
   <meta name="keywords" content="">
-  <title>分类 - HuanBlog</title>
+  <title>HuanBlog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
@@ -47,7 +47,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 100vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -123,7 +123,7 @@
          style="background: url('/img/default.png') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.5)">
           <div class="container text-center white-text fadeInUp">
             <span class="h2" id="subtitle">
               
@@ -132,6 +132,10 @@
             
           </div>
 
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
           
         </div>
       </div>
@@ -142,14 +146,78 @@
     
       <div class="container nopadding-md">
         <div class="py-5" id="board"
-          >
+          style=margin-top:0>
           
           <div class="container">
             <div class="row">
               <div class="col-12 col-md-10 m-auto">
                 
 
-<ul class="category-tree-list"><li class="category-tree-list-item"><a class="category-tree-list-link" href="/categories/Android/">Android</a><span class="category-tree-list-count">9</span></li><li class="category-tree-list-item"><a class="category-tree-list-link" href="/categories/%E7%AE%97%E6%B3%95/">算法</a><span class="category-tree-list-count">2</span></li></ul>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/04/21/other/json%E6%95%B0%E6%8D%AE%E4%B8%8EString%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/">json数据与String的互相转换</a>
+
+      <a href="/2020/04/21/other/json%E6%95%B0%E6%8D%AE%E4%B8%8EString%E7%9A%84%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2/" class="index-excerpt">
+        
+        
+          
+        
+        <div>﻿json数据本质上也是字符串，所以他们之间的转换也是比较容易的，记住方法和需要注意的事项就行了。
+字符串转json在构造json的对象时候把string对象传进去即可。看例子
+String data = "&#123;
+    "result":"success",
+    "message":null
+    &#125;";
+try &#123;
+	JSONObject jsonObect </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-04-21
+          </div>
+        
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-category"></i>
+            
+              <a href="/categories/Android/">Android</a>
+            
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/android/">android</a>
+            
+              <a href="/tags/json/">json</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
 
               </div>
             </div>
@@ -262,7 +330,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "分类&nbsp;",
+        "分享是一种快乐&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 60,
