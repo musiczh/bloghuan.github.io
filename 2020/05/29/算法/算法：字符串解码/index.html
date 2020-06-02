@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/cat.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zhegnhuan">
+  <meta name="keywords" content="">
+  <title>算法：字符串解码 - HuanBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="HuanBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HuanBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+                <div class="mt-3 post-meta">
+                  <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+                  <time datetime="2020-05-29 17:30">
+                    星期五, 五月 29日 2020, 5:30 下午
+                  </time>
+                </div>
+              
+
+              <div class="mt-1">
+                
+                  
+                  <span class="post-meta mr-2">
+                    <i class="iconfont icon-chart"></i>
+                    1.2k 字
+                  </span>
+                
+
+                
+                  
+                  <span class="post-meta mr-2">
+                      <i class="iconfont icon-clock-fill"></i>
+                    
+                    
+                    14
+                     分钟
+                  </span>
+                
+
+                
+              </div>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+              <p class="note note-warning">
+                本文最后更新于：星期五, 五月 29日 2020, 5:30 下午
+              </p>
+            
+            <article class="markdown-body">
+              <h3 id="题目：字符串解码"><a href="#题目：字符串解码" class="headerlink" title="题目：字符串解码"></a>题目：字符串解码</h3><p>给定一个经过编码的字符串，返回它解码后的字符串。</p>
+<p>编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。</p>
+<p>你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。</p>
+<p>此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。</p>
+<pre><code class="hljs plain">示例:
+
+s &#x3D; &quot;3[a]2[bc]&quot;, 返回 &quot;aaabcbc&quot;.
+s &#x3D; &quot;3[a2[c]]&quot;, 返回 &quot;accaccacc&quot;.
+s &#x3D; &quot;2[abc]3[cd]ef&quot;, 返回 &quot;abcabccdcdcdef&quot;.</code></pre>
+
+<blockquote>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/decode-string" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-string</a></p>
+</blockquote>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>首先讲一下我拿到这道题的思路：递归。每一歌中括号可以是一层，然后递归返回中括号中的字符串，和外层的数字进行循环重复后继续下一个中括号。例如：<code>2[4[ab]]3[b]</code></p>
+<ol>
+<li>先得到2，然后递归进入第一个中括号</li>
+<li>得到4，递归进入</li>
+<li>得到ab，遇到<code>]</code>返回上一层</li>
+<li>ab进行4次重复，遇到<code>]</code>返回上一层</li>
+<li>把得到的字符串进行2次重复。然后继续下一组。</li>
+</ol>
+<p>思路应该是挺清晰的。但是这里有几个问题：在第五步的时候怎么确定下一组开始的位置？每一步递归，怎么确认开始的位置？我当时就卡在第一个问题，不知道如何解决。</p>
+<p>对于第二个问题，很简单，重新写一个方法来递归，然后加入position参数即可。第一个问题有两个思路：</p>
+<ol>
+<li>全局变量</li>
+<li>在返回参数中加入</li>
+</ol>
+<p>我比较喜欢第二种。因为全局变量就破坏了封装，我觉得不可取。但是返回参数，不是字符串吗，怎么附带位置信息？这里有个很好的解决方案：字符串数组。返回的字符串数组中一个保存得到的字符串，一个是数字字符串，再进行转换就可以得到位置信息了。思路到此应该就差不多了。另外的实现细节可以自己补充。</p>
+<h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>有递归，那么和递归一样思路的是什么？没错就是栈，那么我们可以使用一个辅助栈解决这个问题。思路和递归是差不多的：</p>
+<ol>
+<li>遍历字符串数组并把字符放进栈。</li>
+<li>当遍历到<code>]</code>时进行回溯，把中距离栈顶第一个<code>[</code>前的字符串拿出来</li>
+<li>然后再遍历数字，遇到栈底或者<code>]</code>停止</li>
+<li>然后进行循环运算后把字符串放进栈中</li>
+<li>最后返回栈中的字符串</li>
+</ol>
+<h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="方法一-1"><a href="#方法一-1" class="headerlink" title="方法一"></a>方法一</h4><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">decodeString</span><span class="hljs-params">(s: <span class="hljs-type">String</span>)</span></span>: String&#123;
+    <span class="hljs-keyword">return</span> getStrings(s,<span class="hljs-number">0</span>)[<span class="hljs-number">0</span>]
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getStrings</span><span class="hljs-params">(s:<span class="hljs-type">String</span>,i:<span class="hljs-type">Int</span>)</span></span>:StringArray&#123;
+    <span class="hljs-keyword">val</span> stringBuilder = StringBuilder()
+    <span class="hljs-keyword">var</span> num = <span class="hljs-number">0</span>
+    <span class="hljs-keyword">var</span> position = i
+    <span class="hljs-keyword">while</span> (position&lt;s.length)&#123;
+        <span class="hljs-keyword">if</span> (s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'a'</span>..<span class="hljs-string">'z'</span> || s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'A'</span>..<span class="hljs-string">'Z'</span>)&#123;
+            stringBuilder.append(s[position])
+        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'0'</span>..<span class="hljs-string">'9'</span>)&#123;
+            num = num*<span class="hljs-number">10</span> + s[position].toInt()-<span class="hljs-number">48</span>
+        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position]==<span class="hljs-string">'['</span>)&#123;
+            <span class="hljs-keyword">val</span> stringArray = getStrings(s,position+<span class="hljs-number">1</span>)
+            position = stringArray[<span class="hljs-number">1</span>].toInt()
+            <span class="hljs-keyword">while</span> (num!=<span class="hljs-number">0</span>)&#123;
+                stringBuilder.append(stringArray[<span class="hljs-number">0</span>])
+                num--
+            &#125;
+        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position]==<span class="hljs-string">']'</span>)&#123;
+            <span class="hljs-keyword">val</span> stringArray = StringArray()
+            stringArray.add(stringBuilder.toString())
+            stringArray.add(position.toString())
+            <span class="hljs-keyword">return</span> stringArray
+        &#125;
+        position++
+    &#125;
+    <span class="hljs-keyword">val</span> stringArray = StringArray()
+    stringArray.add(stringBuilder.toString())
+    stringArray.add(position.toString())
+    <span class="hljs-keyword">return</span> stringArray
+&#125;</code></pre>
+
+<h4 id="方法二-1"><a href="#方法二-1" class="headerlink" title="方法二"></a>方法二</h4><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">decodeString</span><span class="hljs-params">(s: <span class="hljs-type">String</span>)</span></span>: String&#123;
+    <span class="hljs-keyword">if</span> (s.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>
+    <span class="hljs-keyword">val</span> stack = Stack&lt;<span class="hljs-built_in">Char</span>&gt;()
+    <span class="hljs-keyword">for</span> (c <span class="hljs-keyword">in</span> s)&#123;
+        <span class="hljs-keyword">if</span> (c == <span class="hljs-string">']'</span>)&#123;
+            <span class="hljs-keyword">val</span> stringBuilder = StringBuilder()
+            <span class="hljs-keyword">while</span> (stack.peek()!=<span class="hljs-string">'['</span>)&#123;
+                stringBuilder.append(stack.pop())
+            &#125;
+            stack.pop()
+            <span class="hljs-keyword">val</span> string = stringBuilder.reverse().toString()
+
+            <span class="hljs-keyword">var</span> num = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>
+            <span class="hljs-keyword">while</span> (stack.isNotEmpty() &amp;&amp; stack.peek()&gt;=<span class="hljs-string">'0'</span> &amp;&amp; stack.peek()&lt;=<span class="hljs-string">'9'</span>)&#123;
+                <span class="hljs-keyword">val</span> topNum = stack.pop().toInt()-<span class="hljs-number">48</span>
+                <span class="hljs-keyword">val</span> p = <span class="hljs-number">10</span>.toDouble().pow(i)
+                num += topNum*p.toInt()
+                i++
+            &#125;
+
+            <span class="hljs-keyword">for</span> (j <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..num)&#123;
+                stack.addAll(string.toList())
+            &#125;
+        &#125;<span class="hljs-keyword">else</span> stack.add(c)
+    &#125;
+    <span class="hljs-keyword">val</span> sb = StringBuilder()
+    <span class="hljs-keyword">while</span> (stack.isNotEmpty())&#123;
+        sb.append(stack.pop())
+    &#125;
+    sb.reverse()
+    <span class="hljs-keyword">return</span> sb.toString()
+&#125;</code></pre>
+
+
+
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假如最终的字符串长度为n，原字符串的长度为k</p>
+<h4 id="方法一-2"><a href="#方法一-2" class="headerlink" title="方法一"></a>方法一</h4><ol>
+<li>时间复杂度：遍历原字符串，还需要把新字符一个个拼进来。</li>
+</ol>
+<blockquote>
+<p>时间复杂度：O(n+k)</p>
+</blockquote>
+<ol start="2">
+<li>空间复杂度：这里所需要的空间是递归栈的深度，最坏情况下为k</li>
+</ol>
+<blockquote>
+<p>空间复杂度：O(k)</p>
+</blockquote>
+<h4 id="方法二-2"><a href="#方法二-2" class="headerlink" title="方法二"></a>方法二</h4><ol>
+<li>时间复杂度：除了遍历一次原字符串，还要把每个字符都放进栈中所以是</li>
+</ol>
+<blockquote>
+<p>时间复杂度：O(n+k)</p>
+</blockquote>
+<ol start="2">
+<li>空间复杂度：需要一个栈来保存数据，栈的长度为字符串的长度</li>
+</ol>
+<blockquote>
+<p>空间复杂度：O(n)</p>
+</blockquote>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%AE%97%E6%B3%95/">算法</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/05/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">算法：柱状图中最大的矩形</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/05/27/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%92%8C%E4%B8%BAK%E7%9A%84%E6%A8%A1%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E6%95%B0%E7%9B%AE/">
+                        <span class="hidden-mobile">算法：和可被k整除的子数组数目</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+  <script defer src="https://utteranc.es/client.js"
+          repo="musiczh/hexo_comment"
+          issue-term="pathname"
+  
+          theme="github-light"
+          crossorigin="anonymous"
+  >
+  </script>
+
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+  
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '.post-content',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 3,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83df53eb2510e49d9c57be0bce4e6494# 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "算法：字符串解码&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 60,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

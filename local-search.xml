@@ -4,6 +4,326 @@
   
   
   <entry>
+    <title>算法：求1+2+..+n</title>
+    <link href="/2020/06/02/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%B1%821+2+..+n/"/>
+    <url>/2020/06/02/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%B1%821+2+..+n/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：求1-2-n"><a href="#题目：求1-2-n" class="headerlink" title="题目：求1+2+..+n"></a>题目：求1+2+..+n</h3><p>求 1+2+…+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。</p><pre><code class="hljs plain">示例 1：输入: n &#x3D; 3输出: 6</code></pre><pre><code class="hljs plain">限制：1 &lt;&#x3D; n &lt;&#x3D; 10000</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/qiu-12n-lcof" target="_blank" rel="noopener">https://leetcode-cn.com/problems/qiu-12n-lcof</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题如果你有什么大胆的想法，直接做就是了（手动滑稽）。</p><p>先来分析一下，首先拿到这道题，第一反应就是我们熟悉的数学公式 <code>(n+1)n/2</code>。但是这里需要用到乘法和除法，不满足题干。那么接下来分析一下我们还有什么运算符可以用：</p><p>加减法，赋值，位运算，逻辑运算。</p><p>看到位运算是不是眼前一亮。运算可以取代加减乘除，本质上加减乘除也是用位运算来实现的。所以，怎么用位运算实现乘法和除法？</p><p>除法是二的指数就很简单了，直接移位就行了。非二的倍数就比较复杂，这里先不讨论。</p><p>乘法的话，看乘数化为二进制的每一位是不是1.如果是1则被乘数向左移动该位的位置数（第一位默认是0）。例如：2*3: = 010 * 011：</p><ol><li>3的第一位是1，那么结果加上010向左移动0位，即010</li><li>3的第二位是1，那么结果加上010向左移动1位，即010+100=110</li><li>3的第三位是0，结果保持不变，最终是110 即6.</li></ol><p>这样就可以得到答案了。</p><p>但是我们给出的n的大小不确定，又不能用循环判断，那怎么去不断累加呢？</p><p>注意限制条件：1&lt;=n&lt;=10000 。n不会超过·10000，也就是n的二进制位数不会超过14，所以弄14层代替循环即可。没错就是这么暴力。</p><blockquote><p>这道不同编程语言的逻辑运算可参与的数据类型不同。c/c++中可以用整数来进行逻辑运算，但是java等面向对象的语言是不可以的。要注意这点。</p></blockquote><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumNums</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>, A = n, B = n + <span class="hljs-number">1</span>;        <span class="hljs-keyword">boolean</span> flag;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;        A &lt;&lt;= <span class="hljs-number">1</span>;        B &gt;&gt;= <span class="hljs-number">1</span>;        <span class="hljs-keyword">return</span> ans &gt;&gt; <span class="hljs-number">1</span>;    &#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ol><li>时间复杂度：只需要遍历n的二进制位数</li></ol><blockquote><p>时间复杂度：O(logn)</p></blockquote><ol start="2"><li>空间复杂度：只需要额外的常量空间</li></ol><blockquote><p>空间复杂度：O(1)</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>位运算</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：拥有最多糖果的孩子</title>
+    <link href="/2020/06/01/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8B%A5%E6%9C%89%E6%9C%80%E5%A4%9A%E7%B3%96%E6%9E%9C%E7%9A%84%E5%AD%A9%E5%AD%90/"/>
+    <url>/2020/06/01/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%8B%A5%E6%9C%89%E6%9C%80%E5%A4%9A%E7%B3%96%E6%9E%9C%E7%9A%84%E5%AD%A9%E5%AD%90/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：拥有最多糖果的孩子"><a href="#题目：拥有最多糖果的孩子" class="headerlink" title="题目：拥有最多糖果的孩子"></a>题目：拥有最多糖果的孩子</h3><p>给你一个数组 candies 和一个整数 extraCandies ，其中 candies[i] 代表第 i 个孩子拥有的糖果数目。</p><p>对每一个孩子，检查是否存在一种方案，将额外的 extraCandies 个糖果分配给孩子们之后，此孩子有 最多 的糖果。注意，允许有多个孩子同时拥有 最多 的糖果数目。</p> <pre><code class="hljs plain">示例 ：输入：candies &#x3D; [2,3,5,1,3], extraCandies &#x3D; 3输出：[true,true,true,false,true] 解释：孩子 1 有 2 个糖果，如果他得到所有额外的糖果（3个），那么他总共有 5 个糖果，他将成为拥有最多糖果的孩子。孩子 2 有 3 个糖果，如果他得到至少 2 个额外糖果，那么他将成为拥有最多糖果的孩子。孩子 3 有 5 个糖果，他已经是拥有最多糖果的孩子。孩子 4 有 1 个糖果，即使他得到所有额外的糖果，他也只有 4 个糖果，无法成为拥有糖果最多的孩子。孩子 5 有 3 个糖果，如果他得到至少 2 个额外糖果，那么他将成为拥有最多糖果的孩子。</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies" target="_blank" rel="noopener">https://leetcode-cn.com/problems/kids-with-the-greatest-number-of-candies</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>六一儿童节快乐呀。今天做的算法题也轻松一下。思路很简单，找到糖果最多的那个小朋友，然后再依次把多余的糖果分配给每一个小朋友，看他们的手上的糖果是否大于等于最大的那个。</p><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;Boolean&gt; <span class="hljs-title">kidsWithCandies</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] candies, <span class="hljs-keyword">int</span> extraCandies)</span> </span>&#123;       <span class="hljs-keyword">int</span> n = candies.length;       <span class="hljs-keyword">int</span> maxCandies = <span class="hljs-number">0</span>;       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;           maxCandies = Math.max(maxCandies, candies[i]);       &#125;       List&lt;Boolean&gt; ret = <span class="hljs-keyword">new</span> ArrayList&lt;Boolean&gt;();       <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; ++i) &#123;           ret.add(candies[i] + extraCandies &gt;= maxCandies);       &#125;       <span class="hljs-keyword">return</span> ret;   &#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假设一共有n个孩子</p><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><ol><li>时间复杂度：遍历两次数组</li></ol><blockquote><p>时间复杂度：O(n)</p></blockquote><ol start="2"><li>空间复杂度：只需要额外的常量空间</li></ol><blockquote><p>空间复杂度：O(1)</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：判断对称二叉树</title>
+    <link href="/2020/05/31/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%A4%E6%96%AD%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/"/>
+    <url>/2020/05/31/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%A4%E6%96%AD%E5%AF%B9%E7%A7%B0%E4%BA%8C%E5%8F%89%E6%A0%91/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：判断对称二叉树"><a href="#题目：判断对称二叉树" class="headerlink" title="题目：判断对称二叉树"></a>题目：判断对称二叉树</h3><p>给定一个二叉树，检查它是否是镜像对称的。</p><p>例如，二叉树 [1,2,2,3,4,4,3] 是对称的。</p><pre><code class="hljs plain">    1   &#x2F; \  2   2 &#x2F; \ &#x2F; \3  4 4  3</code></pre><p>但是下面这个 [1,2,2,null,3,null,3] 则不是镜像对称的:</p><pre><code class="hljs plain">  1 &#x2F; \2   2 \   \ 3    3</code></pre><pre><code class="hljs plain">示例:输入: [2,1,5,6,2,3]输出: 10</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/symmetric-tree" target="_blank" rel="noopener">https://leetcode-cn.com/problems/symmetric-tree</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>说实话这道题我想了挺久的，可能太久没接触过二叉树了。</p><p>比较容易得到的思路是是递归。根节点下的左右两棵树在一个方法内分别 进行先序递归遍历，但是不同的是，一个是从左边开始的先序遍历，一个是从右边开始的先序遍历。然后依次判断元素是否相同即可。</p><p>另外也可以使用迭代的方式，因为是先序遍历，先遍历到先判断，所以这里可以使用一个特点相同的队列数据结构来辅助迭代。每次取出来两个元素，然后按照一左一右把元素放进去即可。（参考代码即可理解）</p><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><pre><code class="hljs java"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TreeNode</span> </span>&#123;    <span class="hljs-keyword">int</span> val;    TreeNode left;    TreeNode right;     TreeNode(<span class="hljs-keyword">int</span> x) &#123; val = x; &#125; &#125;<span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    <span class="hljs-keyword">return</span> getBoolean(root.left,root.right);&#125; <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">getBoolean</span><span class="hljs-params">(TreeNode nodeL, TreeNode nodeR)</span></span>&#123;        <span class="hljs-keyword">if</span> (nodeL == <span class="hljs-keyword">null</span> &amp;&amp; nodeR == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        <span class="hljs-keyword">if</span> (nodeL == <span class="hljs-keyword">null</span> || nodeR == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">if</span> (nodeL.val != nodeR.val) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;        <span class="hljs-keyword">return</span> getBoolean(nodeL.left,nodeR.right) &amp;&amp; getBoolean(nodeL.right,nodeR.left); &#125;</code></pre><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isSymmetric</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;    <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;        <span class="hljs-keyword">return</span> check(root.left, root.right);    &#125;    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(TreeNode u, TreeNode v)</span> </span>&#123;        Queue&lt;TreeNode&gt; q = <span class="hljs-keyword">new</span> LinkedList&lt;TreeNode&gt;();        q.offer(u);        q.offer(v);        <span class="hljs-keyword">while</span> (!q.isEmpty()) &#123;            u = q.poll();            v = q.poll();            <span class="hljs-keyword">if</span> (u == <span class="hljs-keyword">null</span> &amp;&amp; v == <span class="hljs-keyword">null</span>) &#123;                <span class="hljs-keyword">continue</span>;            &#125;            <span class="hljs-keyword">if</span> ((u == <span class="hljs-keyword">null</span> || v == <span class="hljs-keyword">null</span>) || (u.val != v.val)) &#123;                <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;            &#125;            q.offer(u.left);            q.offer(v.right);            q.offer(u.right);            q.offer(v.left);        &#125;        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;    &#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假设二叉树的元素个数为n</p><h4 id="方法一-1"><a href="#方法一-1" class="headerlink" title="方法一"></a>方法一</h4><ol><li>时间复杂度：每个元素都需要遍历一次</li></ol><blockquote><p>时间复杂度：O(n)</p></blockquote><ol start="2"><li>空间复杂度：栈的个数不会超过元素个数</li></ol><blockquote><p>空间复杂度：O(n)</p></blockquote><h4 id="方法二-1"><a href="#方法二-1" class="headerlink" title="方法二"></a>方法二</h4><ol><li>时间复杂度：每个元素都需要遍历一次</li></ol><blockquote><p>时间复杂度：O(n)</p></blockquote><ol start="2"><li>空间复杂度：队列的长度不会超过n</li></ol><blockquote><p>空间复杂度：O(n)</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>二叉树</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：柱状图中最大的矩形</title>
+    <link href="/2020/05/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/"/>
+    <url>/2020/05/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9F%B1%E7%8A%B6%E5%9B%BE%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%84%E7%9F%A9%E5%BD%A2/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：柱状图中最大的矩形"><a href="#题目：柱状图中最大的矩形" class="headerlink" title="题目：柱状图中最大的矩形"></a>题目：柱状图中最大的矩形</h3><p>给定 n 个非负整数，用来表示柱状图中各个柱子的高度。每个柱子彼此相邻，且宽度为 1 。求在该柱状图中，能够勾勒出来的矩形的最大面积。</p><p><img src="https://img2020.cnblogs.com/blog/1961534/202005/1961534-20200530184957296-77413922.png" srcset="/img/loading.gif" alt=""></p><p>以上是柱状图的示例，其中每个柱子的宽度为 1，给定的高度为 [2,1,5,6,2,3]。</p><p><img src="https://img2020.cnblogs.com/blog/1961534/202005/1961534-20200530184958716-2094348161.png" srcset="/img/loading.gif" alt=""></p><p>图中阴影部分为所能勾勒出的最大矩形面积，其面积为 10 个单位。</p><pre><code class="hljs plain">示例:输入: [2,1,5,6,2,3]输出: 10</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/largest-rectangle-in-histogram" target="_blank" rel="noopener">https://leetcode-cn.com/problems/largest-rectangle-in-histogram</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>拿到这道题，先不要想其他的方法，看看暴力解法能不能算出来。我们会发现暴力算法有两个方案：一个是变化矩形的范围，然后求出范围中的最低柱子，就可以得到面积了。第二个是每个柱子分别向前后扩散，遇到比自己低的就停下来，那么这个范围的宽度乘上自身的高度，就是该位置的柱子可以达到的最大面积。（第二种我当时没想出来==）</p><p>然后我们从暴力算法中，看看有没有可以进行优化的地方。首先两种思路，第一种的话因为已经固定了两层嵌套循环，要去优化的话显然有点困难。第二种的思路只有一个外层循环，所以优化的空间可能会比较大，我们从第二种入手。</p><p>首先我们知道，第二种思路最费时间的点就是每次都要前后去寻找，那我们这里可以去想一下怎么把前面遍历的情况记录下来，节省时间。所以难点就是在确定边界。</p><p>重要特点：这里我们分析边界的特点。如果i &lt; j ,且heights[i] &gt; heights[j] ,这样的话，对于任何 j &lt; k,第K个元素的左边界不可能是i。因为被 j 挡住了。这个应该很好理解吧。可以的话我们继续。</p><p>首先我们进行遍历数组，看什么时候可以确定边界。假设现在有[2,4,1,5,7,3]。（大家可以自行画图体验，我这里就不画图了，懒癌犯了）</p><ol><li>遍历到2的时候，已经确定好左边界，但是还没有确定右边界；</li><li>遍历4，同二。</li><li>遍历1，这个时候我们会发现，第二个元素4，已经确定好边界了，可以得出面积4.</li><li>然后可以发现第一个元素2，也得到他的边界了。</li><li>然后我们会发现，位置1 比前面的任何元素都要小，那么后面的元素，不可能以2,4为左边界。原因看上面。</li><li>然后同理继续遍历5，和7.然后遍历到3的时候，元素 7 也确定边界了。元素5也确定边界了。</li><li>后面已经没有元素了，所以3也可以确定边界。最后再确定1的边界。</li></ol><p>观察上面的流程，有没有一丝丝什么的味道？栈的味道。遍历可以看做是入栈，确定边界的时候，可以看成出栈。先进后出。那么可不可以用一个辅助栈来完成这个流程呢？答案是肯定的。</p><p>思路和上面一模一样，重点是入栈和出栈。从上面的重要特点可以知道，当遇到比较小的元素的时候，那么前面的元素就可以确定边界了，进行出栈操作。所以栈底，永远是前面的最小元素。</p><ol><li>当遍历到的元素比栈顶要小的时候，那么就可以对栈顶元素进行出栈</li><li>这个矩形的高度是栈顶元素的高度，宽度是当前遍历到的元素的 下标 i - 栈顶元素的下一个元素的下标 j + 1.为什么是这样？大家可以画个图模拟一下，就留给大家思考了。</li><li>遍历完成后，再对栈里的元素进行出栈操作。</li><li>过程中记录最大的矩形面积。</li></ol><p>这里建议大家画图去模拟这个过程，会很好去理解，特别是关于矩形的边界的确定，如果没有画图，很容易就漏掉一些细节的考虑。</p><h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span> <span class="hljs-title">largestRectangleArea</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[] heights)</span> </span>&#123;    <span class="hljs-keyword">if</span> (heights.length==<span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;    Stack&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;&gt;();    stack.push(<span class="hljs-number">0</span>);    <span class="hljs-keyword">int</span> maxArea = <span class="hljs-number">0</span>;    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i=<span class="hljs-number">1</span>;i&lt;heights.length;i++)&#123;        <span class="hljs-keyword">if</span> (heights[i]&gt;=heights[stack.peek()]) stack.push(i);        <span class="hljs-keyword">else</span> &#123;            <span class="hljs-keyword">while</span> (!stack.isEmpty() &amp;&amp; heights[i]&lt;heights[stack.peek()] )&#123;                <span class="hljs-keyword">int</span> index = stack.pop();                <span class="hljs-keyword">int</span> area;                <span class="hljs-keyword">if</span> (stack.isEmpty())&#123;                    area = i*heights[index];                &#125;<span class="hljs-keyword">else</span>&#123;                    area = (i-stack.peek()-<span class="hljs-number">1</span>)*heights[index];                &#125;                maxArea = Math.max(maxArea, area);            &#125;            stack.push(i);        &#125;    &#125;    <span class="hljs-keyword">while</span> (!stack.isEmpty())&#123;        <span class="hljs-keyword">int</span> index = stack.pop();        <span class="hljs-keyword">int</span> area;        <span class="hljs-keyword">if</span> (stack.isEmpty())&#123;            area = heights.length*heights[index];        &#125;<span class="hljs-keyword">else</span>&#123;            area = (heights.length-stack.peek()-<span class="hljs-number">1</span>)*heights[index];        &#125;        maxArea = Math.max(area,maxArea);    &#125;    <span class="hljs-keyword">return</span> maxArea;&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假设数组的长度为n</p><ol><li>时间复杂度：首先需要遍历一次数组，每个元素至多进行一次出栈和入栈操作。</li></ol><blockquote><p>时间复杂度：O(n)</p></blockquote><ol start="2"><li>空间复杂度：这里所需要的空间是栈。最多是数组的长度。</li></ol><blockquote><p>空间复杂度：O(n)</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>辅助栈</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：字符串解码</title>
+    <link href="/2020/05/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/"/>
+    <url>/2020/05/29/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%A7%A3%E7%A0%81/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：字符串解码"><a href="#题目：字符串解码" class="headerlink" title="题目：字符串解码"></a>题目：字符串解码</h3><p>给定一个经过编码的字符串，返回它解码后的字符串。</p><p>编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。</p><p>你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。</p><p>此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。</p><pre><code class="hljs plain">示例:s &#x3D; &quot;3[a]2[bc]&quot;, 返回 &quot;aaabcbc&quot;.s &#x3D; &quot;3[a2[c]]&quot;, 返回 &quot;accaccacc&quot;.s &#x3D; &quot;2[abc]3[cd]ef&quot;, 返回 &quot;abcabccdcdcdef&quot;.</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/decode-string" target="_blank" rel="noopener">https://leetcode-cn.com/problems/decode-string</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><h4 id="方法一"><a href="#方法一" class="headerlink" title="方法一"></a>方法一</h4><p>首先讲一下我拿到这道题的思路：递归。每一歌中括号可以是一层，然后递归返回中括号中的字符串，和外层的数字进行循环重复后继续下一个中括号。例如：<code>2[4[ab]]3[b]</code></p><ol><li>先得到2，然后递归进入第一个中括号</li><li>得到4，递归进入</li><li>得到ab，遇到<code>]</code>返回上一层</li><li>ab进行4次重复，遇到<code>]</code>返回上一层</li><li>把得到的字符串进行2次重复。然后继续下一组。</li></ol><p>思路应该是挺清晰的。但是这里有几个问题：在第五步的时候怎么确定下一组开始的位置？每一步递归，怎么确认开始的位置？我当时就卡在第一个问题，不知道如何解决。</p><p>对于第二个问题，很简单，重新写一个方法来递归，然后加入position参数即可。第一个问题有两个思路：</p><ol><li>全局变量</li><li>在返回参数中加入</li></ol><p>我比较喜欢第二种。因为全局变量就破坏了封装，我觉得不可取。但是返回参数，不是字符串吗，怎么附带位置信息？这里有个很好的解决方案：字符串数组。返回的字符串数组中一个保存得到的字符串，一个是数字字符串，再进行转换就可以得到位置信息了。思路到此应该就差不多了。另外的实现细节可以自己补充。</p><h4 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h4><p>有递归，那么和递归一样思路的是什么？没错就是栈，那么我们可以使用一个辅助栈解决这个问题。思路和递归是差不多的：</p><ol><li>遍历字符串数组并把字符放进栈。</li><li>当遍历到<code>]</code>时进行回溯，把中距离栈顶第一个<code>[</code>前的字符串拿出来</li><li>然后再遍历数字，遇到栈底或者<code>]</code>停止</li><li>然后进行循环运算后把字符串放进栈中</li><li>最后返回栈中的字符串</li></ol><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><h4 id="方法一-1"><a href="#方法一-1" class="headerlink" title="方法一"></a>方法一</h4><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">decodeString</span><span class="hljs-params">(s: <span class="hljs-type">String</span>)</span></span>: String&#123;    <span class="hljs-keyword">return</span> getStrings(s,<span class="hljs-number">0</span>)[<span class="hljs-number">0</span>]&#125;<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">getStrings</span><span class="hljs-params">(s:<span class="hljs-type">String</span>,i:<span class="hljs-type">Int</span>)</span></span>:StringArray&#123;    <span class="hljs-keyword">val</span> stringBuilder = StringBuilder()    <span class="hljs-keyword">var</span> num = <span class="hljs-number">0</span>    <span class="hljs-keyword">var</span> position = i    <span class="hljs-keyword">while</span> (position&lt;s.length)&#123;        <span class="hljs-keyword">if</span> (s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'a'</span>..<span class="hljs-string">'z'</span> || s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'A'</span>..<span class="hljs-string">'Z'</span>)&#123;            stringBuilder.append(s[position])        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position] <span class="hljs-keyword">in</span> <span class="hljs-string">'0'</span>..<span class="hljs-string">'9'</span>)&#123;            num = num*<span class="hljs-number">10</span> + s[position].toInt()-<span class="hljs-number">48</span>        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position]==<span class="hljs-string">'['</span>)&#123;            <span class="hljs-keyword">val</span> stringArray = getStrings(s,position+<span class="hljs-number">1</span>)            position = stringArray[<span class="hljs-number">1</span>].toInt()            <span class="hljs-keyword">while</span> (num!=<span class="hljs-number">0</span>)&#123;                stringBuilder.append(stringArray[<span class="hljs-number">0</span>])                num--            &#125;        &#125;<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s[position]==<span class="hljs-string">']'</span>)&#123;            <span class="hljs-keyword">val</span> stringArray = StringArray()            stringArray.add(stringBuilder.toString())            stringArray.add(position.toString())            <span class="hljs-keyword">return</span> stringArray        &#125;        position++    &#125;    <span class="hljs-keyword">val</span> stringArray = StringArray()    stringArray.add(stringBuilder.toString())    stringArray.add(position.toString())    <span class="hljs-keyword">return</span> stringArray&#125;</code></pre><h4 id="方法二-1"><a href="#方法二-1" class="headerlink" title="方法二"></a>方法二</h4><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">decodeString</span><span class="hljs-params">(s: <span class="hljs-type">String</span>)</span></span>: String&#123;    <span class="hljs-keyword">if</span> (s.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>    <span class="hljs-keyword">val</span> stack = Stack&lt;<span class="hljs-built_in">Char</span>&gt;()    <span class="hljs-keyword">for</span> (c <span class="hljs-keyword">in</span> s)&#123;        <span class="hljs-keyword">if</span> (c == <span class="hljs-string">']'</span>)&#123;            <span class="hljs-keyword">val</span> stringBuilder = StringBuilder()            <span class="hljs-keyword">while</span> (stack.peek()!=<span class="hljs-string">'['</span>)&#123;                stringBuilder.append(stack.pop())            &#125;            stack.pop()            <span class="hljs-keyword">val</span> string = stringBuilder.reverse().toString()            <span class="hljs-keyword">var</span> num = <span class="hljs-number">0</span>            <span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>            <span class="hljs-keyword">while</span> (stack.isNotEmpty() &amp;&amp; stack.peek()&gt;=<span class="hljs-string">'0'</span> &amp;&amp; stack.peek()&lt;=<span class="hljs-string">'9'</span>)&#123;                <span class="hljs-keyword">val</span> topNum = stack.pop().toInt()-<span class="hljs-number">48</span>                <span class="hljs-keyword">val</span> p = <span class="hljs-number">10</span>.toDouble().pow(i)                num += topNum*p.toInt()                i++            &#125;            <span class="hljs-keyword">for</span> (j <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>..num)&#123;                stack.addAll(string.toList())            &#125;        &#125;<span class="hljs-keyword">else</span> stack.add(c)    &#125;    <span class="hljs-keyword">val</span> sb = StringBuilder()    <span class="hljs-keyword">while</span> (stack.isNotEmpty())&#123;        sb.append(stack.pop())    &#125;    sb.reverse()    <span class="hljs-keyword">return</span> sb.toString()&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假如最终的字符串长度为n，原字符串的长度为k</p><h4 id="方法一-2"><a href="#方法一-2" class="headerlink" title="方法一"></a>方法一</h4><ol><li>时间复杂度：遍历原字符串，还需要把新字符一个个拼进来。</li></ol><blockquote><p>时间复杂度：O(n+k)</p></blockquote><ol start="2"><li>空间复杂度：这里所需要的空间是递归栈的深度，最坏情况下为k</li></ol><blockquote><p>空间复杂度：O(k)</p></blockquote><h4 id="方法二-2"><a href="#方法二-2" class="headerlink" title="方法二"></a>方法二</h4><ol><li>时间复杂度：除了遍历一次原字符串，还要把每个字符都放进栈中所以是</li></ol><blockquote><p>时间复杂度：O(n+k)</p></blockquote><ol start="2"><li>空间复杂度：需要一个栈来保存数据，栈的长度为字符串的长度</li></ol><blockquote><p>空间复杂度：O(n)</p></blockquote>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：和可被k整除的子数组数目</title>
+    <link href="/2020/05/27/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%92%8C%E4%B8%BAK%E7%9A%84%E6%A8%A1%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E6%95%B0%E7%9B%AE/"/>
+    <url>/2020/05/27/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%92%8C%E4%B8%BAK%E7%9A%84%E6%A8%A1%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84%E6%95%B0%E7%9B%AE/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：和可被k整除的子数组数目"><a href="#题目：和可被k整除的子数组数目" class="headerlink" title="题目：和可被k整除的子数组数目"></a>题目：和可被k整除的子数组数目</h3><p>给定一个整数数组 A，返回其中元素之和可被 K 整除的（连续、非空）子数组的数目。</p><pre><code class="hljs plain">示例：输入：A &#x3D; [4,5,0,-2,-3,1], K &#x3D; 5输出：7解释：有 7 个子数组满足其元素之和可被 K &#x3D; 5 整除：[4, 5, 0, -2, -3, 1], [5], [5, 0], [5, 0, -2, -3], [0], [0, -2, -3], [-2, -3]</code></pre><pre><code class="hljs plain">提示：1 &lt;&#x3D; A.length &lt;&#x3D; 30000-10000 &lt;&#x3D; A[i] &lt;&#x3D; 100002 &lt;&#x3D; K &lt;&#x3D; 10000</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/subarray-sums-divisible-by-k" target="_blank" rel="noopener">https://leetcode-cn.com/problems/subarray-sums-divisible-by-k</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题的思路重点在前缀和+同余定理。</p><p>拿到这道题的时候我一直在想着一个子数组如果符合条件的话，怎样推出他周边的子数组是否符合条件？想了半天还是只有O（N^2）的思路。这里就要用到这个同余定理。</p><p>同余定理：当一个数组，当从0到x-1位置所有数加起来取K的模，和0到Y位置所有数加起来取K的模相等，那么X到Y所有数加起来满足被K整除。这个定理很好证明，这里就不证明了。</p><p>所以我们就顺然想到了前缀和。我们可以统计该数组中所有的前缀和，那么就可以得到满足的子数组数目了。</p><p>这里的实现思路是在遍历的时候维护一个hashMap，记录每种余数的前缀和有多少个。然后当遍历到i位置的时候，假如当前位置的前缀和取K的模是 M，那么查询hashMap，M对应的数目有多少个，那么就有多少个符合条件的数组了。</p><p>注意：这里因为和可能为负数，取模后可能出现负数，所以要进行矫正。不是简单的取绝对值，因为假如模是6,-2实际上等于4而不是2。</p><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">subarraysDivByK</span><span class="hljs-params">(A: <span class="hljs-type">IntArray</span>?, K: <span class="hljs-type">Int</span>)</span></span>: <span class="hljs-built_in">Int</span> &#123;    <span class="hljs-keyword">val</span> hashMap = HashMap&lt;<span class="hljs-built_in">Int</span>,<span class="hljs-built_in">Int</span>&gt;()    hashMap[<span class="hljs-number">0</span>] = <span class="hljs-number">1</span>    <span class="hljs-keyword">var</span> num = <span class="hljs-number">0</span>    <span class="hljs-keyword">var</span> sum = <span class="hljs-number">0</span>    <span class="hljs-keyword">for</span> (elem <span class="hljs-keyword">in</span> A!!)&#123;        sum += elem        <span class="hljs-keyword">val</span> remainder = (sum % K+K)%K        println(remainder)        <span class="hljs-keyword">val</span> indexNum = hashMap.getOrDefault(remainder,<span class="hljs-number">0</span>)        num += indexNum        hashMap[remainder] = indexNum+<span class="hljs-number">1</span>    &#125;    <span class="hljs-keyword">return</span> num&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>遍历一次数组</p><ul><li>时间复杂度：O(n)</li></ul><h5 id="空件复杂度"><a href="#空件复杂度" class="headerlink" title="空件复杂度"></a>空件复杂度</h5><p>维护一个哈希表。长度是Max（K，A.size）</p><ul><li>O(Max（K，A.size）)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>前缀和</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：删除链表节点</title>
+    <link href="/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9/"/>
+    <url>/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E8%8A%82%E7%82%B9/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：删除链表节点"><a href="#题目：删除链表节点" class="headerlink" title="题目：删除链表节点"></a>题目：删除链表节点</h3><p>给定单向链表的头指针和一个要删除的节点的值，定义一个函数删除该节点。</p><p>返回删除后的链表的头节点。</p><p>示例 1:</p><pre><code class="hljs plain">输入: head &#x3D; [4,5,1,9], val &#x3D; 5输出: [4,1,9]解释: 给定你链表中值为 5 的第二个节点，那么在调用了你的函数之后，该链表应变为 4 -&gt; 1 -&gt; 9.</code></pre><pre><code class="hljs plain">&gt; 来源：力扣（LeetCode）&gt; 链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;shan-chu-lian-biao-de-jie-dian-lcof### 分析思路非常简单，找到那个节点，然后把前面的节点指向该节点的next就可以。注意c&#x2F;c++要释放内存。### 解答&#96;&#96;&#96;kotlinfun deleteNode(head: ListNode?, &#96;val&#96;: Int): ListNode? &#123;    if (head?.next &#x3D;&#x3D; null) return head    if (head.&#96;val&#96;&#x3D;&#x3D;&#96;val&#96;) return head.next    var current &#x3D; head.next    var previous &#x3D; head    while (current!&#x3D;null)&#123;        if (current.&#96;val&#96;&#x3D;&#x3D; &#96;val&#96;) previous?.next &#x3D; current.next        previous &#x3D; current        current &#x3D; current.next    &#125;    return head&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>遍历一次链表</p><ul><li>时间复杂度：O(n)</li></ul><h5 id="空件复杂度"><a href="#空件复杂度" class="headerlink" title="空件复杂度"></a>空件复杂度</h5><p>常量空间</p><ul><li>空间复杂度：O(1)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：旋转链表</title>
+    <link href="/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/"/>
+    <url>/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%97%8B%E8%BD%AC%E9%93%BE%E8%A1%A8/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：旋转链表"><a href="#题目：旋转链表" class="headerlink" title="题目：旋转链表"></a>题目：旋转链表</h3><p>给定一个链表，旋转链表，将链表每个节点向右移动 k 个位置，其中 k 是非负数。</p><p>示例 1:</p><pre><code class="hljs plain">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL, k &#x3D; 2输出: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL解释:向右旋转 1 步: 5-&gt;1-&gt;2-&gt;3-&gt;4-&gt;NULL向右旋转 2 步: 4-&gt;5-&gt;1-&gt;2-&gt;3-&gt;NULL</code></pre><pre><code class="hljs plain">&gt; 来源：力扣（LeetCode）&gt; 链接：https:&#x2F;&#x2F;leetcode-cn.com&#x2F;problems&#x2F;rotate-list### 分析这道题很简单。首先让链表变成环，然后看哪个是头节点，把上个节点的next指针变成null，返回该头节点即可。怎么找到头节点呢？用链表的长度-用k取链表长度模，就是头节点了。### 解答&#96;&#96;&#96;kotlinfun rotateRight(head: ListNode?, k: Int): ListNode? &#123;    if (head?.next &#x3D;&#x3D; null) return head    var num &#x3D; 0    var current &#x3D; head    var previous : ListNode? &#x3D; head    while (previous?.next!&#x3D;null)&#123;        num++        previous &#x3D; previous.next    &#125;    num++    previous?.next &#x3D; current    val step &#x3D; num-k%num    for (i in 1..step)&#123;        previous &#x3D; current        current &#x3D; current?.next    &#125;    previous?.next &#x3D; null    return current&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>遍历一次链表</p><ul><li>时间复杂度：O(n)</li></ul><h5 id="空件复杂度"><a href="#空件复杂度" class="headerlink" title="空件复杂度"></a>空件复杂度</h5><p>常量空间</p><ul><li>空间复杂度：O(1)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：合并k个有序链表</title>
+    <link href="/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%90%88%E5%B9%B6k%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
+    <url>/2020/05/24/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%90%88%E5%B9%B6k%E4%B8%AA%E6%9C%89%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：合并k个有序链表"><a href="#题目：合并k个有序链表" class="headerlink" title="题目：合并k个有序链表"></a>题目：合并k个有序链表</h3><p>合并 k 个排序链表，返回合并后的排序链表。请分析和描述算法的复杂度。</p><p>示例:</p><pre><code class="hljs plain">输入:[  1-&gt;4-&gt;5,  1-&gt;3-&gt;4,  2-&gt;6]输出: 1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4-&gt;5-&gt;6</code></pre><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/merge-k-sorted-lists" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-k-sorted-lists</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>要解决这个问题，首先要解决合并2个有序链表的方法，并以此作为拓展来实现合并K个有序链表。关于合并两个有序链表这里不再描述，可以去看我的相关文章。</p><p>这里提供两个思路，一是不断通过两两合并的方式把全部链表合并起来；二是每次从所有链表中选出最小的那个加到链表尾部。</p><p>思路一：这个思路很清晰，但是要注意一点，不能够一条一条合进来，要进行分治法，先两两合并后，再把剩下的两两合并。例如1234，先2+1，再3+4，最后再3+7（这里的1234指的是4个链表）。</p><p>思路二：每次从所有节点中抽取一个节点出来。这里可以使用一个优先队列来维护k个数据。每次从队列中拿走一个节点后就把该节点的下一节点放进去。这样的好处就是，优先队列可以通过效率比较高的算法排序（堆算法），比我们一个个找的效率要高，坏处就是要占用额外的空间。下面的解答我没有使用队列，直接一个个去查找，读者可以自行尝试。</p><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ListNode</span></span>(<span class="hljs-keyword">var</span> `<span class="hljs-keyword">val</span>`: <span class="hljs-built_in">Int</span>) &#123;    <span class="hljs-keyword">var</span> next: ListNode? = <span class="hljs-literal">null</span>&#125;</code></pre><h5 id="解答一"><a href="#解答一" class="headerlink" title="解答一"></a>解答一</h5><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">mergeKLists</span><span class="hljs-params">(lists: <span class="hljs-type">Array</span>&lt;<span class="hljs-type">ListNode</span>?&gt;)</span></span>: ListNode? &#123;    <span class="hljs-keyword">val</span> listArray = ArrayList&lt;ListNode&gt;()    <span class="hljs-keyword">for</span> (node <span class="hljs-keyword">in</span> lists)&#123;        <span class="hljs-keyword">if</span> (node!=<span class="hljs-literal">null</span>) listArray.add(node)    &#125;    <span class="hljs-keyword">if</span> (listArray.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>    <span class="hljs-keyword">val</span> listHead = ListNode(<span class="hljs-number">0</span>)    <span class="hljs-keyword">var</span> listCurrent = listHead    <span class="hljs-keyword">while</span> (listArray.isNotEmpty())&#123;        <span class="hljs-keyword">var</span> num = listArray[<span class="hljs-number">0</span>].`<span class="hljs-keyword">val</span>`        <span class="hljs-keyword">var</span> index = <span class="hljs-number">0</span>        <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> until listArray.size)&#123;            <span class="hljs-keyword">if</span> (listArray[i].`<span class="hljs-keyword">val</span>`&lt;=num)&#123;                num = listArray[i].`<span class="hljs-keyword">val</span>`                index = i            &#125;        &#125;        listCurrent.next = listArray[index]        listCurrent = listCurrent.next!!        <span class="hljs-keyword">if</span> (listArray[index].next!=<span class="hljs-literal">null</span>) listArray[index] = listArray[index].next!!        <span class="hljs-keyword">else</span> listArray.removeAt(index)    &#125;    listCurrent.next = <span class="hljs-literal">null</span>    <span class="hljs-keyword">return</span> listHead.next&#125;</code></pre><h5 id="方法二"><a href="#方法二" class="headerlink" title="方法二"></a>方法二</h5><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">mergeKLists</span><span class="hljs-params">(lists: <span class="hljs-type">Array</span>&lt;<span class="hljs-type">ListNode</span>?&gt;)</span></span>: ListNode? &#123;        <span class="hljs-keyword">if</span> (lists.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>        <span class="hljs-keyword">return</span> merge(lists,<span class="hljs-number">0</span>,lists.size-<span class="hljs-number">1</span>)    &#125;<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">merge</span><span class="hljs-params">(lists: <span class="hljs-type">Array</span>&lt;<span class="hljs-type">ListNode</span>?&gt;,s:<span class="hljs-type">Int</span>, e:<span class="hljs-type">Int</span>)</span></span>:ListNode?&#123;    <span class="hljs-keyword">if</span> (e&lt;=s) <span class="hljs-keyword">return</span> lists[s]    <span class="hljs-keyword">return</span> mergeTwoLists(merge(lists, s, s+(e-s)/<span class="hljs-number">2</span>),merge(lists,s+(e-s)/<span class="hljs-number">2</span>+<span class="hljs-number">1</span>,e))&#125;<span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(l1: <span class="hljs-type">ListNode</span>?, l2: <span class="hljs-type">ListNode</span>?)</span></span>: ListNode? &#123;        <span class="hljs-keyword">when</span>&#123;            l1==<span class="hljs-literal">null</span>&amp;&amp;l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>            l1==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l2            l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l1        &#125;        <span class="hljs-keyword">val</span> listNode :ListNode? = ListNode(<span class="hljs-number">0</span>)        <span class="hljs-keyword">var</span> current = listNode        <span class="hljs-keyword">var</span> point1 = l1        <span class="hljs-keyword">var</span> point2 = l2        <span class="hljs-keyword">while</span> (point1!=<span class="hljs-literal">null</span>&amp;&amp;point2!=<span class="hljs-literal">null</span>)&#123;            <span class="hljs-keyword">if</span> (point1.`<span class="hljs-keyword">val</span>`&lt;point2.`<span class="hljs-keyword">val</span>`)&#123;                current?.next = point1                point1 = point1.next            &#125; <span class="hljs-keyword">else</span> &#123;                current?.next = point2                point2 = point2.next            &#125;            current = current?.next        &#125;        <span class="hljs-keyword">if</span> (point1==<span class="hljs-literal">null</span>)&#123;            current?.next = point2        &#125; <span class="hljs-keyword">else</span> &#123;            current?.next = point1        &#125;        <span class="hljs-keyword">return</span> listNode?.next    &#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><p>假设一共有k个链表，每个链表的最长长度是n</p><h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>第一种方法每次要从k个链表中查找最小值，一共需要找kn次</p><ul><li>时间复杂度：O(kn*k)</li></ul><p>第二种方法递归的层数是logk，（自底向上）第一层一共分为k/2组，每组需要的时间是O(2n)。第二层一共分为k/4组，每组需要的时间是O(4n),以此类推。</p><ul><li>时间复杂度：O(logk*kn)</li></ul><p>可以看到第二种的速度会更快点，但是如果使用先序队列，那么时间复杂度就一样了。</p><h5 id="空件复杂度"><a href="#空件复杂度" class="headerlink" title="空件复杂度"></a>空件复杂度</h5><p>第一种方法不需要任何数组空间，只需要少量变量</p><ul><li>空间复杂度：O(1)</li></ul><p>第二种方法需要用到递归，栈的深度是logk，所以是</p><ul><li>空间复杂度：O(logk)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：最小覆盖子字符串</title>
+    <link href="/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
+    <url>/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%9C%80%E5%B0%8F%E8%A6%86%E7%9B%96%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：最小覆盖子字符串"><a href="#题目：最小覆盖子字符串" class="headerlink" title="题目：最小覆盖子字符串"></a>题目：最小覆盖子字符串</h3><p>给你一个字符串 S、一个字符串 T，请在字符串 S 里面找出：包含 T 所有字符的最小子串。</p><p>示例：</p><pre><code class="hljs plain">输入: S &#x3D; &quot;ADOBECODEBANC&quot;, T &#x3D; &quot;ABC&quot;输出: &quot;BANC&quot;</code></pre><p>说明：</p><p>如果 S 中不存这样的子串，则返回空字符串 “”。<br>如果 S 中存在这样的子串，我们保证它是唯一的答案。</p><blockquote><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/minimum-window-substring" target="_blank" rel="noopener">https://leetcode-cn.com/problems/minimum-window-substring</a></p></blockquote><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题我到手的第一想法是用动态规划，但是后来发现，根本没有办法使用动态规划。首先，动态规划的难点在状态转换，而这道题没办法把以遍历的字符串进行状态记录，所以每次只能记录一下已遍历的字符串中是否有符合的字符串和最小长度，然后每次添加字符的时候都要把已遍历的字符串再遍历一次，因为你不确定是否可以变得更短，或者后面的可以组成更短的符合条件的字符串，所以显然可以发现动态规划很难进行下去。那怎么做呢，这里要提到另外一个概念：动态窗口。</p><p>顾名思义，我们要用一个窗口来标记字符串，然后通过窗口的平移和伸缩等进行遍历，直到遇到符合条件的字符串并记录。最终得到符合条件的最小字符串。</p><p>我们可以使用两个指针来表示窗口的左边界和右边界。每一轮的循环是：</p><ol><li>左指针不动，右指针一直往右，直到他们之间包含了字符串T，也就是所求的字符串。</li><li>左指针开始右移，去除掉左边无用的元素字符。</li><li>最终得到一个符合条件的字符串，并记录下来。</li></ol><p>上面三点是一个循环，然后不断重复，直到末尾。然后选择符合条件最短的字符串。</p><p>然后还有两个问题：</p><p>如何判断该字符是否在所求的字符串t中？如何判断左右指针之间是否已经包含了所求的字符串？这个问题可以通过维护一个hashMap来解决。先遍历一次所求的字符串t并把字符和对应的数目放进hashMap中，之后每遍历一次就-1，如果所有值都&lt;=0则说明已符合要求。</p><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><pre><code class="hljs kotlin"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;       <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">minWindow</span><span class="hljs-params">(s: <span class="hljs-type">String</span>, t: <span class="hljs-type">String</span>)</span></span>: String &#123;        <span class="hljs-keyword">if</span> (s.isEmpty()||t.isEmpty()) <span class="hljs-keyword">return</span> <span class="hljs-string">""</span>        <span class="hljs-keyword">val</span> hashMap  = HashMap&lt;<span class="hljs-built_in">Char</span>,<span class="hljs-built_in">Int</span>&gt;()        <span class="hljs-keyword">for</span> (char <span class="hljs-keyword">in</span> t)&#123;            <span class="hljs-keyword">if</span> (hashMap.containsKey(char)) hashMap[char] = hashMap[char]!!+<span class="hljs-number">1</span>            <span class="hljs-keyword">else</span> hashMap[char] = <span class="hljs-number">1</span>        &#125;        <span class="hljs-keyword">var</span> num = t.length        <span class="hljs-keyword">var</span> string = <span class="hljs-string">""</span>        <span class="hljs-keyword">var</span> pointLeft = <span class="hljs-number">0</span>        <span class="hljs-keyword">var</span> pointRight = <span class="hljs-number">0</span>        <span class="hljs-keyword">while</span> (pointRight!=s.length)&#123;            <span class="hljs-keyword">while</span> (num!=<span class="hljs-number">0</span> &amp;&amp; pointRight&lt;s.length)&#123;                <span class="hljs-keyword">val</span> char = s[pointRight]                <span class="hljs-keyword">if</span> (hashMap.containsKey(char))&#123;                    hashMap[char] = hashMap[char]!!-<span class="hljs-number">1</span>                    hashMap[char]?.let &#123;                        <span class="hljs-keyword">if</span> (it&gt;=<span class="hljs-number">0</span>) num--                    &#125;                &#125;                pointRight++            &#125;            <span class="hljs-keyword">while</span> (num==<span class="hljs-number">0</span> &amp;&amp; pointLeft&lt;pointRight)&#123;                <span class="hljs-keyword">val</span> char = s[pointLeft]                <span class="hljs-keyword">if</span> (hashMap.containsKey(char))&#123;                    hashMap[char] = hashMap[char]!!+<span class="hljs-number">1</span>                    <span class="hljs-keyword">if</span> (hashMap[char]!!&gt;<span class="hljs-number">0</span>)&#123;                        num++                        <span class="hljs-keyword">if</span> (string.isEmpty() || string.length&gt;pointRight-pointLeft)                            string = s.substring(pointLeft,pointRight)                    &#125;                &#125;                pointLeft++            &#125;        &#125;        <span class="hljs-keyword">return</span> string    &#125;&#125;</code></pre><h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><h5 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h5><p>首要要遍历一次字符串t，需要的时间是t的长度m。然后最坏情况下，左指针和右指针都需要遍历一次字符串s，需要的时间是s的长度n。</p><ul><li>时间复杂度：O(m+n)</li></ul><h5 id="控件复杂度"><a href="#控件复杂度" class="headerlink" title="控件复杂度"></a>控件复杂度</h5><p>需要维护一个哈希表，复杂度是t的长度m，以及一些中间变量。</p><ul><li>空间复杂度：O(m)</li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>滑动窗口</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：两数相加</title>
+    <link href="/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/"/>
+    <url>/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E4%B8%A4%E6%95%B0%E7%9B%B8%E5%8A%A0/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：两数相加"><a href="#题目：两数相加" class="headerlink" title="题目：两数相加"></a>题目：两数相加</h3><p>给出两个 <strong>非空</strong> 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 <strong>逆序</strong> 的方式存储的，并且它们的每个节点只能存储 <strong>一位</strong> 数字。</p><p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p><p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p><p><strong>示例：</strong></p><pre><code class="hljs plain">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)输出：7 -&gt; 0 -&gt; 8原因：342 + 465 &#x3D; 807</code></pre><p>拓展：如果是按照逆序呢？例如834=（8-&gt;3-&gt;4)</p><p>链接：<a href="https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-leetcode/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/add-two-numbers/solution/liang-shu-xiang-jia-by-leetcode/</a><br>来源：力扣（LeetCode）</p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题目思路很简单，再创建一个链表，然后记住进位，最后把剩下的接到后面即可。</p><p>关于拓展题目，使用递归或者栈来把顺序颠倒即可。</p><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><span class="hljs-comment"> * Example:</span><span class="hljs-comment"> * var li = ListNode(5)</span><span class="hljs-comment"> * var v = li.`val`</span><span class="hljs-comment"> * Definition for singly-linked list.</span><span class="hljs-comment"> * class ListNode(var `val`: Int) &#123;</span><span class="hljs-comment"> *     var next: ListNode? = null</span><span class="hljs-comment"> * &#125;</span><span class="hljs-comment"> */</span><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;    <span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">addTwoNumbers</span><span class="hljs-params">(l1: <span class="hljs-type">ListNode</span>?, l2: <span class="hljs-type">ListNode</span>?)</span></span>: ListNode? &#123;        <span class="hljs-keyword">if</span>  (l1==<span class="hljs-literal">null</span>||l2==<span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>        <span class="hljs-keyword">val</span> numString = StringBuilder()        <span class="hljs-keyword">var</span> carry = <span class="hljs-number">0</span>        <span class="hljs-keyword">var</span> link1:ListNode? = l1        <span class="hljs-keyword">var</span> link2:ListNode? = l2        <span class="hljs-keyword">while</span> (link1!=<span class="hljs-literal">null</span>||link2!=<span class="hljs-literal">null</span>)&#123;            <span class="hljs-keyword">val</span> one = link1?.`<span class="hljs-keyword">val</span>` ?: <span class="hljs-number">0</span>            <span class="hljs-keyword">val</span> two = link2?.`<span class="hljs-keyword">val</span>` ?: <span class="hljs-number">0</span>            <span class="hljs-keyword">var</span> add = one+two+carry            <span class="hljs-keyword">if</span> (add&gt;=<span class="hljs-number">10</span>)&#123;                carry = <span class="hljs-number">1</span>                add %= <span class="hljs-number">10</span>            &#125;<span class="hljs-keyword">else</span> carry = <span class="hljs-number">0</span>            numString.append(add)            link1?.let &#123; link1 = it.next &#125;            link2?.let &#123; link2 = it.next &#125;        &#125;        <span class="hljs-keyword">if</span> (carry==<span class="hljs-number">1</span>) numString.append(<span class="hljs-number">1</span>)        <span class="hljs-keyword">val</span> linkNode : ListNode = ListNode(numString[<span class="hljs-number">0</span>].toInt()-<span class="hljs-number">48</span>)        <span class="hljs-keyword">var</span> point = linkNode        <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span> until numString.length)&#123;            <span class="hljs-keyword">val</span> node = ListNode(numString[i].toInt()-<span class="hljs-number">48</span>)            point.next = node            point = node        &#125;        point.next = <span class="hljs-literal">null</span>        <span class="hljs-keyword">return</span> linkNode    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>算法：合并两个有序链表</title>
+    <link href="/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%90%88%E5%B9%B6%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/"/>
+    <url>/2020/05/23/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E5%90%88%E5%B9%B6%E5%8D%87%E5%BA%8F%E9%93%BE%E8%A1%A8/</url>
+    
+    <content type="html"><![CDATA[<h3 id="题目：合并两个有序链表"><a href="#题目：合并两个有序链表" class="headerlink" title="题目：合并两个有序链表"></a>题目：合并两个有序链表</h3><p>将两个升序链表合并为一个新的升序链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。 </p><p>示例：</p><pre><code class="hljs plain">输入：1-&gt;2-&gt;4, 1-&gt;3-&gt;4输出：1-&gt;1-&gt;2-&gt;3-&gt;4-&gt;4</code></pre><p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/merge-two-sorted-lists" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-two-sorted-lists</a></p><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题目有两个做法，首先第一个是迭代这是做容易想到的。不断遍历，每次取出节点数字较小的拼接起来即可。</p><p>第二种方法是递归。每次分离出节点数字小的，然后把剩下继续递归，直到一方为空。</p><h3 id="解答"><a href="#解答" class="headerlink" title="解答"></a>解答</h3><ol><li>方法一：迭代</li></ol><pre><code class="hljs kotlin"><span class="hljs-comment">/**</span><span class="hljs-comment"> * Example:</span><span class="hljs-comment"> * var li = ListNode(5)</span><span class="hljs-comment"> * var v = li.`val`</span><span class="hljs-comment"> * Definition for singly-linked list.</span><span class="hljs-comment"> * class ListNode(var `val`: Int) &#123;</span><span class="hljs-comment"> *     var next: ListNode? = null</span><span class="hljs-comment"> * &#125;</span><span class="hljs-comment"> */</span><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(l1: <span class="hljs-type">ListNode</span>?, l2: <span class="hljs-type">ListNode</span>?)</span></span>: ListNode? &#123;    <span class="hljs-keyword">when</span>&#123;        l1==<span class="hljs-literal">null</span>&amp;&amp;l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>        l1==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l2        l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l1    &#125;    <span class="hljs-keyword">val</span> listNode :ListNode? = ListNode(<span class="hljs-number">0</span>)    <span class="hljs-keyword">var</span> current = listNode    <span class="hljs-keyword">var</span> point1 = l1    <span class="hljs-keyword">var</span> point2 = l2    <span class="hljs-keyword">while</span> (point1!=<span class="hljs-literal">null</span>&amp;&amp;point2!=<span class="hljs-literal">null</span>)&#123;        <span class="hljs-keyword">if</span> (point1.`<span class="hljs-keyword">val</span>`&lt;point2.`<span class="hljs-keyword">val</span>`)&#123;            current?.next = point1            point1 = point1.next        &#125; <span class="hljs-keyword">else</span> &#123;            current?.next = point2            point2 = point2.next        &#125;        current = current?.next    &#125;    <span class="hljs-keyword">if</span> (point1==<span class="hljs-literal">null</span>)&#123;        current?.next = point2    &#125; <span class="hljs-keyword">else</span> &#123;        current?.next = point1    &#125;    <span class="hljs-keyword">return</span> listNode?.next&#125;</code></pre><ol start="2"><li>方法二：递归</li></ol><pre><code class="hljs kotlin"><span class="hljs-function"><span class="hljs-keyword">fun</span> <span class="hljs-title">mergeTwoLists</span><span class="hljs-params">(l1: <span class="hljs-type">ListNode</span>?, l2: <span class="hljs-type">ListNode</span>?)</span></span>: ListNode?&#123;    <span class="hljs-keyword">when</span>&#123;        l1==<span class="hljs-literal">null</span>&amp;&amp;l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>        l1==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l2        l2==<span class="hljs-literal">null</span> -&gt; <span class="hljs-keyword">return</span> l1    &#125;    <span class="hljs-keyword">val</span> list1 = l1    <span class="hljs-keyword">val</span> list2 = l2    <span class="hljs-keyword">if</span> (list1!!.`<span class="hljs-keyword">val</span>`&lt;list2!!.`<span class="hljs-keyword">val</span>`)&#123;        list1.next = mergeTwoLists(list1.next,list2)        <span class="hljs-keyword">return</span> list1    &#125;<span class="hljs-keyword">else</span> &#123;        list2.next = mergeTwoLists(list2.next,list1)        <span class="hljs-keyword">return</span> list2    &#125;&#125;</code></pre>]]></content>
+    
+    
+    <categories>
+      
+      <category>算法</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>算法</tag>
+      
+      <tag>链表</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>算法：每个元音包含偶数次的最长字符串</title>
     <link href="/2020/05/20/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
     <url>/2020/05/20/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95%EF%BC%9A%E6%AF%8F%E4%B8%AA%E5%85%83%E9%9F%B3%E5%8C%85%E5%90%AB%E5%81%B6%E6%95%B0%E6%AC%A1%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%97%E7%AC%A6%E4%B8%B2/</url>
@@ -46,6 +366,8 @@
     <tags>
       
       <tag>算法</tag>
+      
+      <tag>链表</tag>
       
     </tags>
     

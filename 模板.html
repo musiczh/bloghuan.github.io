@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/cat.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="zhegnhuan">
+  <meta name="keywords" content="">
+  <title>算法：求1+2+..+n - HuanBlog</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+<link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/9.18.1/styles/github-gist.min.css" />
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_fmb4a04yx8h.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_ijqayz9ro8k.css">
+
+
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="alternate" href="/atom.xml" title="HuanBlog" type="application/atom+xml">
+</head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>HuanBlog</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">
+              <i class="iconfont icon-home-fill"></i>
+              首页</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">
+              <i class="iconfont icon-archive-fill"></i>
+              归档</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">
+              <i class="iconfont icon-category-fill"></i>
+              分类</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">
+              <i class="iconfont icon-tags-fill"></i>
+              标签</a>
+          </li>
+        
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">
+              <i class="iconfont icon-user-fill"></i>
+              关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          >
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+<div class="page-content">
+  <h3 id="题目：求1-2-n"><a href="#题目：求1-2-n" class="headerlink" title="题目：求1+2+..+n"></a>题目：求1+2+..+n</h3><p>求 1+2+…+n ，要求不能使用乘除法、for、while、if、else、switch、case等关键字及条件判断语句（A?B:C）。</p>
+<pre><code class="hljs plain">示例 1：
+
+输入: n &#x3D; 3
+输出: 6</code></pre>
+
+<pre><code class="hljs plain">限制：
+
+1 &lt;&#x3D; n &lt;&#x3D; 10000</code></pre>
+
+<blockquote>
+<p>来源：力扣（LeetCode）<br>链接：<a href="https://leetcode-cn.com/problems/qiu-12n-lcof" target="_blank" rel="noopener">https://leetcode-cn.com/problems/qiu-12n-lcof</a></p>
+</blockquote>
+<h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>这道题如果你有什么大胆的想法，直接做就是了（手动滑稽）。</p>
+<p>先来分析一下，首先拿到这道题，第一反应就是我们熟悉的数学公式 <code>(n+1)n/2</code>。但是这里需要用到乘法和除法，不满足题干。那么接下来分析一下我们还有什么运算符可以用：</p>
+<p>加减法，赋值，位运算，逻辑运算。</p>
+<p>看到位运算是不是眼前一亮。运算可以取代加减乘除，本质上加减乘除也是用位运算来实现的。所以，怎么用位运算实现乘法和除法？</p>
+<p>除法是二的指数就很简单了，直接移位就行了。非二的倍数就比较复杂，这里先不讨论。</p>
+<p>乘法的话，看乘数化为二进制的每一位是不是1.如果是1则被乘数向左移动该位的位置数（第一位默认是0）。例如：2*3: = 010 * 011：</p>
+<ol>
+<li>3的第一位是1，那么结果加上010向左移动0位，即010</li>
+<li>3的第二位是1，那么结果加上010向左移动1位，即010+100=110</li>
+<li>3的第三位是0，结果保持不变，最终是110 即6.</li>
+</ol>
+<p>这样就可以得到答案了。</p>
+<p>但是我们给出的n的大小不确定，又不能用循环判断，那怎么去不断累加呢？</p>
+<p>注意限制条件：1&lt;=n&lt;=10000 。n不会超过·10000，也就是n的二进制位数不会超过14，所以弄14层代替循环即可。没错就是这么暴力。</p>
+<blockquote>
+<p>这道不同编程语言的逻辑运算可参与的数据类型不同。c/c++中可以用整数来进行逻辑运算，但是java等面向对象的语言是不可以的。要注意这点。</p>
+</blockquote>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><pre><code class="hljs java"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">sumNums</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;
+        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>, A = n, B = n + <span class="hljs-number">1</span>;
+        <span class="hljs-keyword">boolean</span> flag;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        flag = ((B &amp; <span class="hljs-number">1</span>) &gt; <span class="hljs-number">0</span>) &amp;&amp; (ans += A) &gt; <span class="hljs-number">0</span>;
+        A &lt;&lt;= <span class="hljs-number">1</span>;
+        B &gt;&gt;= <span class="hljs-number">1</span>;
+
+        <span class="hljs-keyword">return</span> ans &gt;&gt; <span class="hljs-number">1</span>;
+    &#125;</code></pre>
+
+
+
+<h3 id="复杂度分析"><a href="#复杂度分析" class="headerlink" title="复杂度分析"></a>复杂度分析</h3><ol>
+<li>时间复杂度：只需要遍历n的二进制位数</li>
+</ol>
+<blockquote>
+<p>时间复杂度：O(logn)</p>
+</blockquote>
+<ol start="2">
+<li>空间复杂度：只需要额外的常量空间</li>
+</ol>
+<blockquote>
+<p>空间复杂度：O(1)</p>
+</blockquote>
+
+</div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/main.js" ></script>
+
+
+  <script  src="/js/lazyload.js" ></script>
+
+
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+
+
+
+<!-- Plugins -->
+
+
+  
+    <!-- Baidu Analytics -->
+    <script defer>
+      var _hmt = _hmt || [];
+      (function () {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?83df53eb2510e49d9c57be0bce4e6494# 百度统计的Key，参见 https://tongji.baidu.com/sc-web/10000033910/home/site/getjs?siteId=13751376 代码获取中 hm.js? 后边的字符串";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "算法：求1+2+..+n&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 60,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
